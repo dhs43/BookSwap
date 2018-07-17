@@ -12,6 +12,10 @@
 		6310453420FD90BE00B97C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453220FD90BE00B97C0C /* Main.storyboard */; };
 		6310453620FD90BE00B97C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6310453520FD90BE00B97C0C /* Assets.xcassets */; };
 		6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */; };
+		63FF7E9720FD91C300B8FDAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */; };
+		63FF7E9920FD96B300B8FDAF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */; };
+		63FF7E9B20FDB7CF00B8FDAF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */; };
+		D4F3CC6BB78D152EAC5D0F82 /* Pods_BookSwap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9124037D3755DD57DCCAA54 /* Pods_BookSwap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,12 @@
 		6310453520FD90BE00B97C0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C62FF91DECD1E5D63990CE54 /* Pods-BookSwap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookSwap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap.debug.xcconfig"; sourceTree = "<group>"; };
+		E9124037D3755DD57DCCAA54 /* Pods_BookSwap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookSwap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F977EF4A80B1E2FCC010BB0B /* Pods-BookSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookSwap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +39,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F3CC6BB78D152EAC5D0F82 /* Pods_BookSwap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EDEFE2206B231E7E7E48B6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9124037D3755DD57DCCAA54 /* Pods_BookSwap.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6310452220FD90BE00B97C0C = {
 			isa = PBXGroup;
 			children = (
 				6310452D20FD90BE00B97C0C /* BookSwap */,
 				6310452C20FD90BE00B97C0C /* Products */,
+				A2DF49A32FF90AC8475D6F86 /* Pods */,
+				2EDEFE2206B231E7E7E48B6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,11 +78,23 @@
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
+				63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */,
+				63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */,
 				6310453520FD90BE00B97C0C /* Assets.xcassets */,
 				6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */,
+				63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */,
 				6310453A20FD90BE00B97C0C /* Info.plist */,
 			);
 			path = BookSwap;
+			sourceTree = "<group>";
+		};
+		A2DF49A32FF90AC8475D6F86 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C62FF91DECD1E5D63990CE54 /* Pods-BookSwap.debug.xcconfig */,
+				F977EF4A80B1E2FCC010BB0B /* Pods-BookSwap.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6310453D20FD90BE00B97C0C /* Build configuration list for PBXNativeTarget "BookSwap" */;
 			buildPhases = (
+				C2E1721B6049E287C4416E12 /* [CP] Check Pods Manifest.lock */,
 				6310452720FD90BE00B97C0C /* Sources */,
 				6310452820FD90BE00B97C0C /* Frameworks */,
 				6310452920FD90BE00B97C0C /* Resources */,
+				E18ED95BCEE1D9F21CA3987E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */,
+				63FF7E9720FD91C300B8FDAF /* GoogleService-Info.plist in Resources */,
 				6310453620FD90BE00B97C0C /* Assets.xcassets in Resources */,
 				6310453420FD90BE00B97C0C /* Main.storyboard in Resources */,
 			);
@@ -130,11 +166,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C2E1721B6049E287C4416E12 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BookSwap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E18ED95BCEE1D9F21CA3987E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6310452720FD90BE00B97C0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63FF7E9B20FDB7CF00B8FDAF /* LoginViewController.swift in Sources */,
+				63FF7E9920FD96B300B8FDAF /* RegisterViewController.swift in Sources */,
 				6310453120FD90BE00B97C0C /* ViewController.swift in Sources */,
 				6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */,
 			);
@@ -278,6 +357,7 @@
 		};
 		6310453E20FD90BE00B97C0C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C62FF91DECD1E5D63990CE54 /* Pods-BookSwap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -296,6 +376,7 @@
 		};
 		6310453F20FD90BE00B97C0C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F977EF4A80B1E2FCC010BB0B /* Pods-BookSwap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
