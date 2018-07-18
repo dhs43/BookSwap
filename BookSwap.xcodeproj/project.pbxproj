@@ -10,8 +10,8 @@
 		6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6310452E20FD90BE00B97C0C /* AppDelegate.swift */; };
 		6310453120FD90BE00B97C0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6310453020FD90BE00B97C0C /* ViewController.swift */; };
 		6310453420FD90BE00B97C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453220FD90BE00B97C0C /* Main.storyboard */; };
-		6310453620FD90BE00B97C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6310453520FD90BE00B97C0C /* Assets.xcassets */; };
 		6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */; };
+		63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B5A73120FEFCD3001310D7 /* Images.xcassets */; };
 		63FF7E9720FD91C300B8FDAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */; };
 		63FF7E9920FD96B300B8FDAF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */; };
 		63FF7E9B20FDB7CF00B8FDAF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */; };
@@ -23,9 +23,9 @@
 		6310452E20FD90BE00B97C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6310453020FD90BE00B97C0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6310453320FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6310453520FD90BE00B97C0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63B5A73120FEFCD3001310D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -77,13 +77,13 @@
 			children = (
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
-				6310453220FD90BE00B97C0C /* Main.storyboard */,
 				63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */,
 				63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */,
-				6310453520FD90BE00B97C0C /* Assets.xcassets */,
+				6310453220FD90BE00B97C0C /* Main.storyboard */,
 				6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */,
 				63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */,
 				6310453A20FD90BE00B97C0C /* Info.plist */,
+				63B5A73120FEFCD3001310D7 /* Images.xcassets */,
 			);
 			path = BookSwap;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */,
+				63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */,
 				63FF7E9720FD91C300B8FDAF /* GoogleService-Info.plist in Resources */,
-				6310453620FD90BE00B97C0C /* Assets.xcassets in Resources */,
 				6310453420FD90BE00B97C0C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +360,7 @@
 			baseConfigurationReference = C62FF91DECD1E5D63990CE54 /* Pods-BookSwap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;
@@ -379,6 +380,7 @@
 			baseConfigurationReference = F977EF4A80B1E2FCC010BB0B /* Pods-BookSwap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;

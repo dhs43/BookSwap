@@ -24,7 +24,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZiI-fU-4ab" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1743" y="134"/>
+            <point key="canvasLocation" x="-1801" y="134"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="97y-Wl-RSU">
@@ -76,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fl-Z1-TDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-938" y="134"/>
+            <point key="canvasLocation" x="-1009" y="134"/>
         </scene>
         <!--Register-->
         <scene sceneID="Jwo-yF-mFz">
@@ -131,7 +131,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="u7X-0G-5mA" id="wIc-K2-CFP"/>
                         <outlet property="passwordTextField" destination="dM0-95-TiB" id="4TW-76-WuC"/>
-                        <segue destination="ulk-N7-b9M" kind="show" identifier="registrationSuccess" id="U4Q-up-RMg"/>
+                        <segue destination="jtW-LZ-c41" kind="show" identifier="registrationSuccess" id="jC4-dT-OqL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8TG-ye-flk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -197,7 +197,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="keB-SP-MbI" id="cqy-JO-cTm"/>
                         <outlet property="passwordTextField" destination="sif-KN-ngi" id="RSx-4a-607"/>
-                        <segue destination="ulk-N7-b9M" kind="show" identifier="loginSuccess" id="wrs-nI-54j"/>
+                        <segue destination="jtW-LZ-c41" kind="show" identifier="loginSuccess" id="UEJ-nZ-IIw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -205,23 +205,96 @@
             </objects>
             <point key="canvasLocation" x="-68" y="-207"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Vkl-NG-Pzr">
+        <!--Navigation Controller-->
+        <scene sceneID="Q4v-WZ-nvR">
             <objects>
-                <viewController id="ulk-N7-b9M" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ODi-rw-KnQ">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NS8-5v-dTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="jtW-LZ-c41" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gaQ-Id-BMv">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Khh-EJ-awm" kind="relationship" relationship="rootViewController" id="HNC-Wk-rSY"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="886" y="134"/>
+        </scene>
+        <!--Account-->
+        <scene sceneID="Utc-fR-Giw">
+            <objects>
+                <viewController id="S4G-fS-aBC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p0B-r2-8vb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="SBU-SL-FBa"/>
+                        <viewLayoutGuide key="safeArea" id="teb-jG-Sn2"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Account" image="userImage" id="4u6-ST-zPG"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4j4-Sk-TTJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSs-8f-khm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="786" y="134"/>
+            <point key="canvasLocation" x="2705" y="903"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vmg-2M-2lI">
+            <objects>
+                <viewController id="Q0E-1Y-30U" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bHR-BS-4dl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="E58-3E-DCs"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="7QA-MN-E6F"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FhO-Lf-XME" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2705" y="-553"/>
+        </scene>
+        <!--Sell-->
+        <scene sceneID="yXi-Br-ix7">
+            <objects>
+                <viewController id="M7f-B8-wAr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WIi-Kv-t3l">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="2Og-SH-jDK"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Sell" image="dollarIcon" id="8er-MS-yX5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jqO-oQ-Kyk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2705" y="134"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="6pS-Qd-5WU">
+            <objects>
+                <tabBarController id="Khh-EJ-awm" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="G3s-21-YvM"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BsC-9S-7Rp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Q0E-1Y-30U" kind="relationship" relationship="viewControllers" id="0fF-OY-bHb"/>
+                        <segue destination="M7f-B8-wAr" kind="relationship" relationship="viewControllers" id="FY3-g0-I9x"/>
+                        <segue destination="S4G-fS-aBC" kind="relationship" relationship="viewControllers" id="Uch-Wb-Cx6"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fbz-UK-cgb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1718" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dollarIcon" width="25" height="25"/>
+        <image name="userImage" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wrs-nI-54j"/>
+        <segue reference="UEJ-nZ-IIw"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -32,7 +32,7 @@ class RegisterViewController: UIViewController {
             if error != nil{
                 print(error!)
             }else{
-                print("Registration Sucessful")
+                print("Registration Successful")
                 
                 self.performSegue(withIdentifier: "registrationSuccess", sender: self)
             }
