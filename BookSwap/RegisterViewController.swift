@@ -25,12 +25,14 @@ class RegisterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //registration
     @IBAction func registerPressed(_ sender: Any) {
         
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             
             if error != nil{
                 print(error!)
+                self.handleAuthError(error!)
             }else{
                 print("Registration Successful")
                 

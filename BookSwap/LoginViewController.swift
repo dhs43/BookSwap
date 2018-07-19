@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
             
             if error != nil{
                 print(error!)
+                self.handleAuthError(error!)
             }else{
                 print("Login Successful")
                 
