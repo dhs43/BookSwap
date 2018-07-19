@@ -14,6 +14,8 @@ class LoginViewController: UIViewController {
     //username and password outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var resetPasswordButton: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -35,10 +37,29 @@ class LoginViewController: UIViewController {
             if error != nil{
                 print(error!)
                 self.handleAuthError(error!)
-            }else{
-                print("Login Successful")
                 
+                if error!._code == 17009{
+                    self.resetPasswordButton.isHidden = false
+                }
+            }else{
                 self.performSegue(withIdentifier: "loginSuccess", sender: self)
+            }
+        }
+    }
+    
+    //reset password
+    @IBAction func resetPasswordButton(_ sender: Any) {
+        Auth.auth().sendPasswordReset(withEmail: emailTextField.text!){ error in
+            
+            if error != nil{
+                self.handleAuthError(error!)
+            }else{
+                //alert user to check email for reset link
+                let passwordResetAlert = UIAlertController(title: "Password Reset", message: "A password reset link has been sent to your email.", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                passwordResetAlert.addAction(okAction)
             }
         }
     }

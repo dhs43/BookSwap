@@ -188,9 +188,25 @@
                                     <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w26-5D-fkj"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EU-wE-pX5">
+                                <rect key="frame" x="66" y="276" width="243" height="30"/>
+                                <color key="backgroundColor" red="0.71666798857868019" green="0.46177078367160346" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Reset Password">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="resetPasswordButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gdH-4j-ddj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="0EU-wE-pX5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="EXP-el-n9w"/>
                             <constraint firstItem="keB-SP-MbI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="76" id="H6a-06-mcY"/>
                             <constraint firstItem="sif-KN-ngi" firstAttribute="top" secondItem="keB-SP-MbI" secondAttribute="bottom" constant="8" id="N3a-3N-H4D"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="keB-SP-MbI" secondAttribute="trailing" constant="66" id="NnR-F8-8dx"/>
@@ -199,6 +215,8 @@
                             <constraint firstItem="soy-xo-p0N" firstAttribute="top" secondItem="sif-KN-ngi" secondAttribute="bottom" constant="8" id="VBA-5S-usl"/>
                             <constraint firstItem="soy-xo-p0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="cYU-b4-JCe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="soy-xo-p0N" secondAttribute="trailing" constant="66" id="cnl-AH-JLA"/>
+                            <constraint firstItem="0EU-wE-pX5" firstAttribute="top" secondItem="soy-xo-p0N" secondAttribute="bottom" constant="30" id="iOd-UJ-IX8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0EU-wE-pX5" secondAttribute="trailing" constant="66" id="kub-lA-Ohc"/>
                             <constraint firstItem="sif-KN-ngi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="uvw-PR-z93"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -206,13 +224,14 @@
                     <connections>
                         <outlet property="emailTextField" destination="keB-SP-MbI" id="cqy-JO-cTm"/>
                         <outlet property="passwordTextField" destination="sif-KN-ngi" id="RSx-4a-607"/>
+                        <outlet property="resetPasswordButton" destination="0EU-wE-pX5" id="qON-Sy-OTG"/>
                         <segue destination="jtW-LZ-c41" kind="show" identifier="loginSuccess" id="UEJ-nZ-IIw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="Pdo-Uw-X3X" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-68" y="-207"/>
+            <point key="canvasLocation" x="-68" y="-207.34632683658174"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q4v-WZ-nvR">
@@ -311,6 +330,6 @@
         <image name="userImage" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jC4-dT-OqL"/>
+        <segue reference="UEJ-nZ-IIw"/>
     </inferredMetricsTieBreakers>
 </document>

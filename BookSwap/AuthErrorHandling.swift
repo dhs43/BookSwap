@@ -16,7 +16,7 @@ extension AuthErrorCode {
         case .emailAlreadyInUse:
             return "The email is already in use with another account"
         case .userNotFound:
-            return "Email or password is incorrect."
+            return "Email not associated with a user"
         case .userDisabled:
             return "Your account has been disabled. Please contact support."
         case .invalidEmail, .invalidSender, .invalidRecipientEmail:
@@ -26,7 +26,9 @@ extension AuthErrorCode {
         case .weakPassword:
             return "Your password is too weak. The password must be 6 characters long or more."
         case .wrongPassword:
-            return "Email or password is incorrect."
+            return "Incorrect password"
+        case .missingEmail:
+            return "Please enter an email address"
         default:
             return "Unknown error occurred"
         }
