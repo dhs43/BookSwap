@@ -348,7 +348,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Og-SH-jDK"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sell" image="dollarIcon" id="8er-MS-yX5"/>
+                    <tabBarItem key="tabBarItem" title="Sell" image="gavelIcon" id="8er-MS-yX5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqO-oQ-Kyk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -376,7 +376,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dollarIcon" width="25" height="25"/>
+        <image name="gavelIcon" width="25" height="25"/>
         <image name="userImage" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
