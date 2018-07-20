@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="q5r-Nh-fQE">
             <objects>
-                <navigationController id="1GJ-ap-l3n" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="appStart" id="1GJ-ap-l3n" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fml-RT-P7r">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -29,7 +29,7 @@
         <!--Welcome-->
         <scene sceneID="97y-Wl-RSU">
             <objects>
-                <viewController title="Welcome" id="7n9-ry-9MX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginRegister" title="Welcome" id="7n9-ry-9MX" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zau-Ms-HZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -236,7 +236,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Q4v-WZ-nvR">
             <objects>
-                <navigationController id="jtW-LZ-c41" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="signedIn" id="jtW-LZ-c41" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gaQ-Id-BMv">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -257,13 +257,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yFK-S0-z4w">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5v-OD-lM4">
+                                <rect key="frame" x="160" y="462" width="55" height="30"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOutButton:" destination="S4G-fS-aBC" eventType="touchUpInside" id="jQ6-hl-B4x"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="teb-jG-Sn2" firstAttribute="trailing" secondItem="x5v-OD-lM4" secondAttribute="trailing" constant="160" id="3AB-KB-WdQ"/>
+                            <constraint firstItem="x5v-OD-lM4" firstAttribute="top" secondItem="teb-jG-Sn2" secondAttribute="top" constant="398" id="UIC-Se-W8k"/>
+                            <constraint firstItem="x5v-OD-lM4" firstAttribute="leading" secondItem="teb-jG-Sn2" secondAttribute="leading" constant="160" id="zom-hE-nqI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="teb-jG-Sn2"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="userImage" id="4u6-ST-zPG"/>
@@ -295,14 +302,57 @@
                     <view key="view" contentMode="scaleToFill" id="WIi-Kv-t3l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEn-Qh-vRO">
+                                <rect key="frame" x="179" y="185" width="16" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ClD-r0-uT3">
+                                <rect key="frame" x="66" y="135" width="243" height="30"/>
+                                <color key="backgroundColor" red="0.71642245680000005" green="0.68891005019999996" blue="0.51128567670000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Scan Barcode">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRh-BH-4bS">
+                                <rect key="frame" x="66" y="226" width="243" height="30"/>
+                                <color key="backgroundColor" red="0.18233111499999999" green="0.35593992470000002" blue="0.14614763859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Search for Book">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2Og-SH-jDK" firstAttribute="trailing" secondItem="CEn-Qh-vRO" secondAttribute="trailing" constant="180" id="3Nr-AV-cqS"/>
+                            <constraint firstItem="2Og-SH-jDK" firstAttribute="trailing" secondItem="ClD-r0-uT3" secondAttribute="trailing" constant="66" id="9qT-F9-ihK"/>
+                            <constraint firstItem="CEn-Qh-vRO" firstAttribute="leading" secondItem="2Og-SH-jDK" secondAttribute="leading" constant="179" id="S1B-WN-r44"/>
+                            <constraint firstItem="CEn-Qh-vRO" firstAttribute="top" secondItem="ClD-r0-uT3" secondAttribute="bottom" constant="20" id="XRc-FC-3Vt"/>
+                            <constraint firstItem="ClD-r0-uT3" firstAttribute="leading" secondItem="2Og-SH-jDK" secondAttribute="leading" constant="66" id="c2X-Vn-WyJ"/>
+                            <constraint firstItem="2Og-SH-jDK" firstAttribute="trailing" secondItem="zRh-BH-4bS" secondAttribute="trailing" constant="66" id="mav-B5-y41"/>
+                            <constraint firstItem="ClD-r0-uT3" firstAttribute="top" secondItem="2Og-SH-jDK" secondAttribute="top" constant="71" id="pmE-oN-CRw"/>
+                            <constraint firstItem="zRh-BH-4bS" firstAttribute="leading" secondItem="2Og-SH-jDK" secondAttribute="leading" constant="66" id="wzG-3X-kFo"/>
+                            <constraint firstItem="zRh-BH-4bS" firstAttribute="top" secondItem="CEn-Qh-vRO" secondAttribute="bottom" constant="20" id="yEK-zn-VF0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2Og-SH-jDK"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Sell" image="dollarIcon" id="8er-MS-yX5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqO-oQ-Kyk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2705" y="134"/>
+            <point key="canvasLocation" x="2704.8000000000002" y="133.5832083958021"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6pS-Qd-5WU">

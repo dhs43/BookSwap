@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AccountViewController: UIViewController {
 
@@ -21,15 +22,21 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //logout
+    @IBAction func logOutButton(_ sender: Any) {
+        do{
+            try Auth.auth().signOut()
+            
+            //switch back to login page
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let signInVC = storyboard.instantiateViewController(withIdentifier: "appStart")
+            self.present(signInVC, animated: true, completion: nil)
+            
+            
+        } catch let logoutError {
+            print(logoutError)
+        }
     }
-    */
+    
 
 }

@@ -20,6 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Firebase
         FirebaseApp.configure()
+
+        //check if user is already logged in
+        if Auth.auth().currentUser != nil {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "signedIn")
+            
+        } else {
+            // No user is signed in. Starting view remains unchanged.
+        }
         
         return true
     }
