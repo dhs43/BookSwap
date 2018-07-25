@@ -12,6 +12,7 @@
 		6310453420FD90BE00B97C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453220FD90BE00B97C0C /* Main.storyboard */; };
 		6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */; };
 		63296CC32101D394008DA161 /* GoogleBooksSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63296CC22101D394008DA161 /* GoogleBooksSearch.swift */; };
+		637AF74C2106B6120012EB04 /* SearchGoodreads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637AF74B2106B6120012EB04 /* SearchGoodreads.swift */; };
 		63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B5A73120FEFCD3001310D7 /* Images.xcassets */; };
 		63BD4C7021003FC60096C537 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BD4C6F21003FC60096C537 /* AccountViewController.swift */; };
 		63BD4C72210047090096C537 /* AuthErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BD4C71210047090096C537 /* AuthErrorHandling.swift */; };
@@ -29,6 +30,7 @@
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63296CC22101D394008DA161 /* GoogleBooksSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksSearch.swift; sourceTree = "<group>"; };
+		637AF74B2106B6120012EB04 /* SearchGoodreads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGoodreads.swift; sourceTree = "<group>"; };
 		63B5A73120FEFCD3001310D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		63BD4C6F21003FC60096C537 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		63BD4C71210047090096C537 /* AuthErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorHandling.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
+				637AF74B2106B6120012EB04 /* SearchGoodreads.swift */,
 				63296CC42101D3C5008DA161 /* Account */,
 				63296CC22101D394008DA161 /* GoogleBooksSearch.swift */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
@@ -209,13 +212,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -235,6 +244,7 @@
 				63BD4C72210047090096C537 /* AuthErrorHandling.swift in Sources */,
 				63296CC32101D394008DA161 /* GoogleBooksSearch.swift in Sources */,
 				6310453120FD90BE00B97C0C /* ViewController.swift in Sources */,
+				637AF74C2106B6120012EB04 /* SearchGoodreads.swift in Sources */,
 				6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Firebase
         FirebaseApp.configure()
-
+    
         //check if user is already logged in
         if Auth.auth().currentUser != nil {
             
@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // No user is signed in. Starting view remains unchanged.
         }
+        
+        searchGoodreads(keyword: "test")
         
         return true
     }
