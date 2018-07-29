@@ -29,10 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "signedIn")
             
         } else {
-            // No user is signed in. Starting view remains unchanged.
+            // No user is signed in. Directs to Login/Register view.
         }
-        
-        searchGoodreads(keyword: "test")
         
         return true
     }
