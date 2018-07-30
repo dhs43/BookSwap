@@ -10,6 +10,9 @@ import UIKit
 import SVProgressHUD
 import Kingfisher
 
+//for textbook image covers
+let cache = KingfisherManager.shared.cache
+
 class GBooksViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -31,6 +34,11 @@ class GBooksViewController: UIViewController {
     func searchGoogleBooks(query: String){
         
         SVProgressHUD.show(withStatus: "Searching")
+        
+        //clear previous caches of textbooks images
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+        cache.cleanExpiredDiskCache()
         
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -143,6 +151,7 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
         //cover image
         if books[indexPath.row].imageURL != nil {
             let url = URL(string: books[indexPath.row].imageURL!)
+            //cache image using Kingfisher
             cell.bookCoverView.kf.setImage(with: url)
         }else{
             cell.bookCoverView.image = #imageLiteral(resourceName: "noCoverImage")
