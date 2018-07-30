@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import Kingfisher
 
 class GBooksViewController: UIViewController {
 
@@ -33,7 +34,7 @@ class GBooksViewController: UIViewController {
         
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=15"
+        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=20"
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             if error != nil {
@@ -140,17 +141,11 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         //cover image
-        do{
-            if books[indexPath.row].imageURL != nil {
-                let url = URL(string: books[indexPath.row].imageURL!)
-                let data = try Data(contentsOf: url!)
-                cell.bookCoverView.image = UIImage(data: data)
-            }else{
-                cell.bookCoverView.image = #imageLiteral(resourceName: "noCoverImage")
-            }
-        }
-        catch{
-            print(error)
+        if books[indexPath.row].imageURL != nil {
+            let url = URL(string: books[indexPath.row].imageURL!)
+            cell.bookCoverView.kf.setImage(with: url)
+        }else{
+            cell.bookCoverView.image = #imageLiteral(resourceName: "noCoverImage")
         }
         
         return cell
