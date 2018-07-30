@@ -30,7 +30,7 @@ class GBooksViewController: UIViewController {
         
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)"
+        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=15"
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             if error != nil {
@@ -51,7 +51,7 @@ class GBooksViewController: UIViewController {
                             
                             //putting all authors into one string
                             if let temp = volumeInfo["authors"] as? [String] {
-                                var authors = " "
+                                var authors = ""
                                 for i in 0..<temp.count {
                                     authors = authors + temp[i]
                                 }
@@ -63,19 +63,19 @@ class GBooksViewController: UIViewController {
                                 book.imageURL = imageLinks["thumbnail"]
                             }
                             
-                            //assign isbn10
+                            //assign isbns
                             if let isbns = volumeInfo["industryIdentifiers"] as? [[String: String]] {
-                                if isbns.count > 0 {
-                                let isbnTen = isbns[0]
-                                book.isbn10 = isbnTen["identifier"]
-                                print("isbn10 - \(book.isbn10!)")
-                                }
                                 
-                                //isbn13
-                                if isbns.count > 1 {
-                                let isbnThirteen = isbns[1]
-                                book.isbn13 = isbnThirteen["identifier"]
-                                print("isbn13 - \(book.isbn13!)")
+                                for i in 0..<isbns.count {
+                                    
+                                    let firstIsbn = isbns[i]
+                                    if firstIsbn["type"] == "ISBN_10" {
+                                        book.isbn10 = firstIsbn["identifier"]
+                                        print("isbn10 - \(book.isbn10!)")
+                                    }else{
+                                        book.isbn13 = firstIsbn["identifier"]
+                                        print("isbn13 - \(book.isbn13!)")
+                                    }
                                 }
                             }
                             //adding book to an array of books
@@ -114,11 +114,37 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! BookItemTableViewCell
+        let cell = Bundle.main.loadNibNamed("BookItemTableViewCell", owner: self, options: nil)?.first as! BookItemTableViewCell
         
+        //title
         cell.titleLabel.text = books[indexPath.row].title!
+        //author
         if books[indexPath.row].author != nil{
-        cell.authorLabel.text = books[indexPath.row].author!
+            cell.authorLabel.text = "Author: \(books[indexPath.row].author!)"
+        }else{
+            cell.authorLabel.text = "Author Unknown"
+        }
+        //isbn
+        if books[indexPath.row].isbn13 != nil {
+            cell.isbnLabel.text = "ISBN: \(books[indexPath.row].isbn13!)"
+        }else if books[indexPath.row].isbn10 != nil{
+            cell.isbnLabel.text = "ISBN: \(books[indexPath.row].isbn10!)"
+        }else{
+            cell.isbnLabel.text = "ISBN Unknown"
+        }
+        
+        //cover image
+        do{
+            if books[indexPath.row].imageURL != nil {
+                let url = URL(string: books[indexPath.row].imageURL!)
+                let data = try Data(contentsOf: url!)
+                cell.bookCoverView.image = UIImage(data: data)
+            }else{
+                cell.bookCoverView.image = #imageLiteral(resourceName: "noCoverImage")
+            }
+        }
+        catch{
+            print(error)
         }
         
         return cell

@@ -49,7 +49,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         //checks if it found an ISBN code
-        if metadataObjects != nil && metadataObjects.count != 0
+        if metadataObjects.count != 0
         {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject
             {
