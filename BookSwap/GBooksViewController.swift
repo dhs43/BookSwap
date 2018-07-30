@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class GBooksViewController: UIViewController {
 
@@ -18,7 +19,7 @@ class GBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -27,6 +28,8 @@ class GBooksViewController: UIViewController {
 
     //search Google Books for a keyword
     func searchGoogleBooks(query: String){
+        
+        SVProgressHUD.show(withStatus: "Searching")
         
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -87,9 +90,13 @@ class GBooksViewController: UIViewController {
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
             }
+            SVProgressHUD.dismiss()
         }.resume()
         
         print("URL: \(url)")
+        
+        //hide keyboard
+        self.searchBar.endEditing(true)
     }
     
     
@@ -97,7 +104,6 @@ class GBooksViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
@@ -158,5 +164,4 @@ extension GBooksViewController: UISearchBarDelegate {
         let text = searchBar.text
         self.searchGoogleBooks(query: text!)
     }
-    
 }
