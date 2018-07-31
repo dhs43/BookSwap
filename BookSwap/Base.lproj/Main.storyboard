@@ -510,7 +510,31 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Edition" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1r8-Ld-BHJ">
-                                <rect key="frame" x="16" y="208" width="150" height="30"/>
+                                <rect key="frame" x="16" y="208" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="LDC-Gb-PaH"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Department" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Yc-geC">
+                                <rect key="frame" x="16" y="270" width="167" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="167" id="sNB-FL-59f"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Course" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5b-lX-VK4">
+                                <rect key="frame" x="191" y="270" width="167" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Condition" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ILn-dg-3kD" userLabel="Condition">
+                                <rect key="frame" x="16" y="332" width="110" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -518,22 +542,34 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="1r8-Ld-BHJ" secondAttribute="trailing" constant="209" id="FzY-Bp-K1L"/>
+                            <constraint firstItem="4VK-Yc-geC" firstAttribute="top" secondItem="1r8-Ld-BHJ" secondAttribute="bottom" constant="32" id="8uz-hh-01n"/>
+                            <constraint firstItem="k5b-lX-VK4" firstAttribute="leading" secondItem="4VK-Yc-geC" secondAttribute="trailing" constant="8" symbolic="YES" id="9m9-8o-Olw"/>
+                            <constraint firstItem="ILn-dg-3kD" firstAttribute="trailing" secondItem="1r8-Ld-BHJ" secondAttribute="trailing" id="AiV-a9-amz"/>
+                            <constraint firstItem="ILn-dg-3kD" firstAttribute="top" secondItem="4VK-Yc-geC" secondAttribute="bottom" constant="32" id="CY7-ZD-kZE"/>
                             <constraint firstItem="4sL-gH-2De" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="Muf-RJ-jST"/>
-                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="top" secondItem="JQl-p9-qsX" secondAttribute="bottom" constant="8" id="NBl-BR-ZIf"/>
+                            <constraint firstItem="4VK-Yc-geC" firstAttribute="leading" secondItem="1r8-Ld-BHJ" secondAttribute="leading" id="Qpt-UV-rOH"/>
+                            <constraint firstItem="4VK-Yc-geC" firstAttribute="baseline" secondItem="k5b-lX-VK4" secondAttribute="baseline" id="Ro3-cT-7Np"/>
+                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="top" secondItem="JQl-p9-qsX" secondAttribute="bottom" constant="8" id="aBE-ec-JvJ"/>
                             <constraint firstItem="4sL-gH-2De" firstAttribute="top" secondItem="pBy-9n-XSO" secondAttribute="top" constant="68" id="f6j-3G-VTY"/>
+                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="gcg-hc-Nzi"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="JQl-p9-qsX" secondAttribute="trailing" constant="16" id="hrV-fu-AgD"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="4sL-gH-2De" secondAttribute="trailing" constant="16" id="hx6-op-8ol"/>
-                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="mBd-A2-z6i"/>
+                            <constraint firstItem="ILn-dg-3kD" firstAttribute="leading" secondItem="4VK-Yc-geC" secondAttribute="leading" id="iMp-Nd-Cet"/>
                             <constraint firstItem="JQl-p9-qsX" firstAttribute="top" secondItem="4sL-gH-2De" secondAttribute="bottom" constant="8" id="sDL-3u-StU"/>
                             <constraint firstItem="JQl-p9-qsX" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="sVV-pM-phe"/>
+                            <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="k5b-lX-VK4" secondAttribute="trailing" constant="17" id="tT8-Mu-qfw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pBy-9n-XSO"/>
                     </view>
+                    <connections>
+                        <outlet property="conditionTextField" destination="ILn-dg-3kD" id="Il0-i8-3ME"/>
+                        <outlet property="courseTextField" destination="k5b-lX-VK4" id="NlK-on-Xfu"/>
+                        <outlet property="departmentTextField" destination="4VK-Yc-geC" id="0BA-wb-Uuh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ng5-pt-P4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4009.5" y="1022.5"/>
+            <point key="canvasLocation" x="4008.8000000000002" y="1022.3388305847077"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6pS-Qd-5WU">
