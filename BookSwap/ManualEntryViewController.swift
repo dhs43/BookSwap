@@ -18,17 +18,17 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     let coursePicker = UIPickerView()
     let conditionsPicker = UIPickerView()
     
-    let conditions = ["Excellent",
-                      "Good",
-                      "Poor",
-                      "Damaged"]
-    
     let departments = ["CS",
                        "BIOL"]
     
     let courses = ["101",
                    "102",
                    "103"]
+    
+    let conditions = ["Excellent",
+                      "Good",
+                      "Poor",
+                      "Damaged"]
     
     //holds selections for later use
     var selectedDepartment: String?

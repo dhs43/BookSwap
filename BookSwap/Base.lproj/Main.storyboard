@@ -143,6 +143,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="u7X-0G-5mA" id="wIc-K2-CFP"/>
                         <outlet property="passwordTextField" destination="dM0-95-TiB" id="4TW-76-WuC"/>
+                        <outlet property="usernameTextField" destination="eIG-uZ-1lO" id="RtM-8e-UTu"/>
                         <segue destination="jtW-LZ-c41" kind="show" identifier="registrationSuccess" id="jC4-dT-OqL"/>
                     </connections>
                 </viewController>
@@ -267,22 +268,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5v-OD-lM4">
-                                <rect key="frame" x="160" y="462" width="55" height="30"/>
+                                <rect key="frame" x="160" y="468.5" width="55" height="30"/>
                                 <state key="normal" title="Log Out"/>
                                 <connections>
                                     <action selector="logOutButton:" destination="S4G-fS-aBC" eventType="touchUpInside" id="jQ6-hl-B4x"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-0a-zHV">
+                                <rect key="frame" x="149" y="89" width="76" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="teb-jG-Sn2" firstAttribute="trailing" secondItem="x5v-OD-lM4" secondAttribute="trailing" constant="160" id="3AB-KB-WdQ"/>
-                            <constraint firstItem="x5v-OD-lM4" firstAttribute="top" secondItem="teb-jG-Sn2" secondAttribute="top" constant="398" id="UIC-Se-W8k"/>
-                            <constraint firstItem="x5v-OD-lM4" firstAttribute="leading" secondItem="teb-jG-Sn2" secondAttribute="leading" constant="160" id="zom-hE-nqI"/>
+                            <constraint firstItem="x5v-OD-lM4" firstAttribute="centerX" secondItem="p0B-r2-8vb" secondAttribute="centerX" id="SNn-m0-WCC"/>
+                            <constraint firstItem="x5v-OD-lM4" firstAttribute="centerY" secondItem="p0B-r2-8vb" secondAttribute="centerY" constant="150" id="gyF-H4-2qt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="teb-jG-Sn2"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="userImage" id="4u6-ST-zPG"/>
+                    <connections>
+                        <outlet property="usernameTextLabel" destination="ikL-0a-zHV" id="w9E-Nq-6e2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSs-8f-khm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -303,7 +313,7 @@
                                     <constraint firstAttribute="height" constant="40" id="fY0-2F-DXS"/>
                                 </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Search by Class">
+                                <state key="normal" title="Search by class">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -471,7 +481,7 @@
         <!--Scan Barcode-->
         <scene sceneID="Ht1-SR-pCZ">
             <objects>
-                <viewController storyboardIdentifier="ISBN Scanner" title="Scan Barcode" id="1ha-Cr-iAg" customClass="ViewController" customModule="BookSwap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ISBN Scanner" title="Scan Barcode" id="1ha-Cr-iAg" customClass="ISBNViewController" customModule="BookSwap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DQT-Kv-9dw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

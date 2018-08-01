@@ -49,4 +49,12 @@ extension UIViewController{
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    //create username error alert
+    func enterUsernameAlert() {
+        let alert = UIAlertController(title: "Error", message: "Please enter a username", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 }

@@ -16,6 +16,7 @@
 		63926994210D9308007F2B4D /* GBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63926993210D9308007F2B4D /* GBooksViewController.swift */; };
 		63926996210D9977007F2B4D /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63926995210D9977007F2B4D /* Book.swift */; };
 		63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B5A73120FEFCD3001310D7 /* Images.xcassets */; };
+		63B5D95C211188E30010DE97 /* ISBNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B5D95B211188E30010DE97 /* ISBNViewController.swift */; };
 		63BD4C7021003FC60096C537 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BD4C6F21003FC60096C537 /* AccountViewController.swift */; };
 		63BD4C72210047090096C537 /* AuthErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BD4C71210047090096C537 /* AuthErrorHandling.swift */; };
 		63E10980210FE9D3001D858A /* ManualEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */; };
@@ -37,6 +38,7 @@
 		63926993210D9308007F2B4D /* GBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBooksViewController.swift; sourceTree = "<group>"; };
 		63926995210D9977007F2B4D /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		63B5A73120FEFCD3001310D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		63B5D95B211188E30010DE97 /* ISBNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNViewController.swift; sourceTree = "<group>"; };
 		63BD4C6F21003FC60096C537 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		63BD4C71210047090096C537 /* AuthErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorHandling.swift; sourceTree = "<group>"; };
 		63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryViewController.swift; sourceTree = "<group>"; };
@@ -91,17 +93,18 @@
 			children = (
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
+				63B5D95B211188E30010DE97 /* ISBNViewController.swift */,
 				63926993210D9308007F2B4D /* GBooksViewController.swift */,
 				63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */,
 				63926995210D9977007F2B4D /* Book.swift */,
 				63296CC42101D3C5008DA161 /* Account */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
 				6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */,
-				63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */,
-				6310453A20FD90BE00B97C0C /* Info.plist */,
-				63B5A73120FEFCD3001310D7 /* Images.xcassets */,
 				63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */,
 				63860E5F210EA5B500DB4992 /* BookItemTableViewCell.xib */,
+				63B5A73120FEFCD3001310D7 /* Images.xcassets */,
+				63FF7E9620FD91C300B8FDAF /* GoogleService-Info.plist */,
+				6310453A20FD90BE00B97C0C /* Info.plist */,
 			);
 			path = BookSwap;
 			sourceTree = "<group>";
@@ -222,19 +225,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BookSwap/Pods-BookSwap-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -254,6 +257,7 @@
 				63FF7E9920FD96B300B8FDAF /* RegisterViewController.swift in Sources */,
 				63BD4C72210047090096C537 /* AuthErrorHandling.swift in Sources */,
 				63926994210D9308007F2B4D /* GBooksViewController.swift in Sources */,
+				63B5D95C211188E30010DE97 /* ISBNViewController.swift in Sources */,
 				6310453120FD90BE00B97C0C /* ViewController.swift in Sources */,
 				63860E60210EA5B500DB4992 /* BookItemTableViewCell.swift in Sources */,
 				6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */,
