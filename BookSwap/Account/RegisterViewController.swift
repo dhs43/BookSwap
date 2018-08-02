@@ -8,12 +8,8 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
 import SVProgressHUD
 
-
-//Firebase database
-let myDatabase = Database.database().reference()
 
 //Username
 let userID = Auth.auth().currentUser?.uid
@@ -45,9 +41,7 @@ class RegisterViewController: UIViewController {
         }
         
         SVProgressHUD.show()
-        
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            
         SVProgressHUD.dismiss()
             
             if error != nil{
@@ -58,18 +52,19 @@ class RegisterViewController: UIViewController {
                 
                 self.performSegue(withIdentifier: "registrationSuccess", sender: self)
             
-                saveProfile(username: self.usernameTextField.text!, email: self.emailTextField.text!)
+                self.saveProfile(username: self.usernameTextField.text!, email: self.emailTextField.text!)
             }
         }
+    }
+    
+    //save username and email
+    func saveProfile(username: String, email: String) {
         
-        func saveProfile(username: String, email: String) {
-            
-            let userObject = [
-                "username":username,
-                "email":email
-                ] as [String:String]
-            
-            myDatabase.child("users").child(userID!).setValue(["userData":userObject])
-        }
+        let userObject = [
+            "username":username,
+            "email":email
+            ] as [String:String]
+        
+        myDatabase.child("users").child(userID!).setValue(["userData":userObject])
     }
 }

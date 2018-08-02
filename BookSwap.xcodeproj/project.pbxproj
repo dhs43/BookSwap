@@ -15,6 +15,7 @@
 		63860E61210EA5B500DB4992 /* BookItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63860E5F210EA5B500DB4992 /* BookItemTableViewCell.xib */; };
 		63926994210D9308007F2B4D /* GBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63926993210D9308007F2B4D /* GBooksViewController.swift */; };
 		63926996210D9977007F2B4D /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63926995210D9977007F2B4D /* Book.swift */; };
+		63ACB4BB211273C3008B9F8A /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ACB4BA211273C3008B9F8A /* ListingsViewController.swift */; };
 		63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B5A73120FEFCD3001310D7 /* Images.xcassets */; };
 		63B5D95C211188E30010DE97 /* ISBNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B5D95B211188E30010DE97 /* ISBNViewController.swift */; };
 		63BD4C7021003FC60096C537 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BD4C6F21003FC60096C537 /* AccountViewController.swift */; };
@@ -37,6 +38,7 @@
 		63860E5F210EA5B500DB4992 /* BookItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookItemTableViewCell.xib; sourceTree = "<group>"; };
 		63926993210D9308007F2B4D /* GBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBooksViewController.swift; sourceTree = "<group>"; };
 		63926995210D9977007F2B4D /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		63ACB4BA211273C3008B9F8A /* ListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
 		63B5A73120FEFCD3001310D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		63B5D95B211188E30010DE97 /* ISBNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNViewController.swift; sourceTree = "<group>"; };
 		63BD4C6F21003FC60096C537 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
 				63B5D95B211188E30010DE97 /* ISBNViewController.swift */,
 				63926993210D9308007F2B4D /* GBooksViewController.swift */,
+				63ACB4BA211273C3008B9F8A /* ListingsViewController.swift */,
 				63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */,
 				63926995210D9977007F2B4D /* Book.swift */,
 				63296CC42101D3C5008DA161 /* Account */,
@@ -262,6 +265,7 @@
 				63860E60210EA5B500DB4992 /* BookItemTableViewCell.swift in Sources */,
 				6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */,
 				63E10980210FE9D3001D858A /* ManualEntryViewController.swift in Sources */,
+				63ACB4BB211273C3008B9F8A /* ListingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +414,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +422,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidshapiro.BookSwap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -430,6 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,7 +443,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidshapiro.BookSwap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

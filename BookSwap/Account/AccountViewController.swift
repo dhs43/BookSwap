@@ -16,7 +16,17 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        var username = usernameTextLabel.text
+        
+        //display username on account page
+        myDatabase.child("users").child(userID!).child("userData").observeSingleEvent(of: .value) { (snapshot) in
+            let profileData = snapshot.value as! [String: Any]
+            username = profileData["username"] as? String
+            
+            self.usernameTextLabel.text = username
+            self.usernameTextLabel.isHidden = false
+        }
     }
 
     override func didReceiveMemoryWarning() {

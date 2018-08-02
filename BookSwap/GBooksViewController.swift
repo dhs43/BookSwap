@@ -10,13 +10,14 @@ import UIKit
 import SVProgressHUD
 import Kingfisher
 
-//for textbook image covers
-let cache = KingfisherManager.shared.cache
 
 class GBooksViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    //for textbook image covers
+    let cache = KingfisherManager.shared.cache
     
     //array to store multiple results
     var books = [Book]()
@@ -31,11 +32,11 @@ class GBooksViewController: UIViewController {
     }
 
     //search Google Books for a keyword
-    func searchGoogleBooks(query: String){
+    func searchGoogleBooks(query: String) {
         
         SVProgressHUD.show(withStatus: "Searching")
         
-        //clear previous caches of textbooks images
+        //clear previous caches of textbook images
         cache.clearMemoryCache()
         cache.clearDiskCache()
         cache.cleanExpiredDiskCache()

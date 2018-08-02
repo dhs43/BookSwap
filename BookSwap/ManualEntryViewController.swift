@@ -14,6 +14,11 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var courseTextField: UITextField!
     @IBOutlet weak var conditionTextField: UITextField!
     
+    @IBAction func sellPressed(_ sender: Any) {
+    }
+    
+    
+    
     let departmentPicker = UIPickerView()
     let coursePicker = UIPickerView()
     let conditionsPicker = UIPickerView()
@@ -106,5 +111,25 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             selectedCondition = conditions[row]
             conditionTextField.text = selectedCondition
         }
+    }
+    
+    func postListing(title: String, author: String, edition: String, department: String, course: String, condition: String, price: Int) {
+        
+        let listingObject = [
+            "title":title,
+            "author":author,
+            "edition":edition,
+            "department":department,
+            "course":course,
+            "condition":condition,
+            "price":price
+        ] as [String:Any]
+        
+        let listingsByCreator = [
+            "listing":listingObject,
+            "creator":userID!
+        ] as [String:Any]
+        
+        myDatabase.child("listings")
     }
 }

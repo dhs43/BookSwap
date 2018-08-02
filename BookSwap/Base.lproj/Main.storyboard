@@ -274,9 +274,8 @@
                                     <action selector="logOutButton:" destination="S4G-fS-aBC" eventType="touchUpInside" id="jQ6-hl-B4x"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-0a-zHV">
-                                <rect key="frame" x="149" y="89" width="76" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-0a-zHV">
+                                <rect key="frame" x="16" y="89" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -284,8 +283,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="teb-jG-Sn2" firstAttribute="trailing" secondItem="ikL-0a-zHV" secondAttribute="trailing" constant="16" id="Kgh-ky-yeB"/>
                             <constraint firstItem="x5v-OD-lM4" firstAttribute="centerX" secondItem="p0B-r2-8vb" secondAttribute="centerX" id="SNn-m0-WCC"/>
+                            <constraint firstItem="ikL-0a-zHV" firstAttribute="leading" secondItem="teb-jG-Sn2" secondAttribute="leading" constant="16" id="dIw-b6-AfQ"/>
                             <constraint firstItem="x5v-OD-lM4" firstAttribute="centerY" secondItem="p0B-r2-8vb" secondAttribute="centerY" constant="150" id="gyF-H4-2qt"/>
+                            <constraint firstItem="ikL-0a-zHV" firstAttribute="top" secondItem="teb-jG-Sn2" secondAttribute="top" constant="25" id="rJF-WE-P1E"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="teb-jG-Sn2"/>
                     </view>
@@ -296,12 +298,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSs-8f-khm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4010" y="158"/>
+            <point key="canvasLocation" x="4008.8000000000002" y="157.87106446776613"/>
         </scene>
-        <!--View Controller-->
+        <!--Listings View Controller-->
         <scene sceneID="vmg-2M-2lI">
             <objects>
-                <viewController id="Q0E-1Y-30U" sceneMemberID="viewController">
+                <viewController id="Q0E-1Y-30U" customClass="ListingsViewController" customModule="BookSwap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bHR-BS-4dl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -330,6 +332,11 @@
                                     <outlet property="delegate" destination="Q0E-1Y-30U" id="6gk-vj-Fwa"/>
                                 </connections>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fa3-xi-O6E">
+                                <rect key="frame" x="0.0" y="120" width="375" height="436"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -341,7 +348,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="7QA-MN-E6F"/>
                     <connections>
+                        <outlet property="searchBar" destination="I7I-OO-xha" id="eFb-ZU-Cik"/>
                         <outlet property="searchDisplayController" destination="2J1-Mo-Wjo" id="tsX-Mo-ZLJ"/>
+                        <outlet property="tableView" destination="Fa3-xi-O6E" id="Fay-LN-M9J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhO-Lf-XME" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -355,7 +364,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2287" y="158"/>
+            <point key="canvasLocation" x="2285.5999999999999" y="157.87106446776613"/>
         </scene>
         <!--Sell-->
         <scene sceneID="yXi-Br-ix7">
@@ -549,6 +558,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebl-0a-O0k">
+                                <rect key="frame" x="66" y="607" width="243" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.14597034449999999" green="0.33243203160000001" blue="0.10865012559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Sell">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sellPressed:" destination="QHB-Mz-6Ch" eventType="touchUpInside" id="ged-Xm-aEY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
