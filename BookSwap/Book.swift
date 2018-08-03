@@ -14,7 +14,12 @@ class Book: NSObject{
     var author: String?
     var isbn13: String?
     var isbn10: String?
+    var edition: String?
+    var department: String?
+    var course: String?
+    var condition: String?
+    var price: Int?
     var imageURL: String?
-    var forClass: String?
+    var listedBy: String?
     
 }

@@ -19,6 +19,8 @@ class AccountViewController: UIViewController {
         
         var username = usernameTextLabel.text
         
+        //unique userID
+        userID = Auth.auth().currentUser?.uid
         //display username on account page
         myDatabase.child("users").child(userID!).child("userData").observeSingleEvent(of: .value) { (snapshot) in
             let profileData = snapshot.value as! [String: Any]
@@ -43,7 +45,6 @@ class AccountViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let signInVC = storyboard.instantiateViewController(withIdentifier: "appStart")
             self.present(signInVC, animated: true, completion: nil)
-            
             
         } catch let logoutError {
             print(logoutError)

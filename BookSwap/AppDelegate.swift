@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 let myDatabase = Database.database().reference()
+var userID = Auth.auth().currentUser?.uid
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // No user is signed in. Directs to Login/Register view.
         }
+        
+        //unique userID
+        userID = Auth.auth().currentUser?.uid
         
         return true
     }

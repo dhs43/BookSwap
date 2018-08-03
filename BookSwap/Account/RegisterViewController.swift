@@ -10,10 +10,6 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
-
-//Username
-let userID = Auth.auth().currentUser?.uid
-
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var usernameTextField: UITextField!
@@ -50,9 +46,9 @@ class RegisterViewController: UIViewController {
             }else{
                 print("Registration Successful")
                 
-                self.performSegue(withIdentifier: "registrationSuccess", sender: self)
-            
                 self.saveProfile(username: self.usernameTextField.text!, email: self.emailTextField.text!)
+                
+                self.performSegue(withIdentifier: "registrationSuccess", sender: self)
             }
         }
     }
@@ -65,6 +61,7 @@ class RegisterViewController: UIViewController {
             "email":email
             ] as [String:String]
         
+        userID = Auth.auth().currentUser?.uid
         myDatabase.child("users").child(userID!).setValue(["userData":userObject])
     }
 }

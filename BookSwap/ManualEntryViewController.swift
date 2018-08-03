@@ -7,46 +7,56 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var authorTextField: UITextField!
+    @IBOutlet weak var editionTextField: UITextField!
     @IBOutlet weak var departmentTextField: UITextField!
     @IBOutlet weak var courseTextField: UITextField!
     @IBOutlet weak var conditionTextField: UITextField!
+    @IBOutlet weak var isbnTextField: UITextField!
+    @IBOutlet weak var priceTextField: UITextField!
+
     
-    @IBAction func sellPressed(_ sender: Any) {
-    }
-    
-    
+    var selectedDepartment: String?
+    var selectedCourse: String?
+    var selectedCondition: String?
     
     let departmentPicker = UIPickerView()
     let coursePicker = UIPickerView()
     let conditionsPicker = UIPickerView()
     
-    let departments = ["CS",
+    let departments = ["",
+                       "N/A",
+                       "CS",
                        "BIOL"]
     
-    let courses = ["101",
+    let courses = ["",
+                   "N/A",
+                   "101",
                    "102",
                    "103"]
     
-    let conditions = ["Excellent",
+    let conditions = ["",
+                      "Excellent",
                       "Good",
                       "Poor",
                       "Damaged"]
-    
-    //holds selections for later use
-    var selectedDepartment: String?
-    var selectedCourse: String?
-    var selectedCondition: String?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SVProgressHUD.setBorderColor(UIColor(red:0.15, green:0.33, blue:0.12, alpha:1.0))
+        SVProgressHUD.setBorderWidth(1)
+        
         createPicker(myPicker: departmentPicker, textField: departmentTextField)
         createPicker(myPicker: coursePicker, textField: courseTextField)
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,23 +123,87 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    func postListing(title: String, author: String, edition: String, department: String, course: String, condition: String, price: Int) {
+    //pressed sell
+    @IBAction func sellPressed(_ sender: Any) {
         
-        let listingObject = [
-            "title":title,
-            "author":author,
-            "edition":edition,
-            "department":department,
-            "course":course,
-            "condition":condition,
-            "price":price
-        ] as [String:Any]
+        SVProgressHUD.setMinimumDismissTimeInterval(1)
         
-        let listingsByCreator = [
-            "listing":listingObject,
-            "creator":userID!
-        ] as [String:Any]
+        let bookToSell = Book()
         
-        myDatabase.child("listings")
+        if titleTextField.text?.isEmpty == false {
+            bookToSell.title = titleTextField.text!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please enter a title")
+            return
+        }
+        if authorTextField.text?.isEmpty == false {
+            bookToSell.author = authorTextField.text!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please enter an author")
+            return
+        }
+        if editionTextField.text?.isEmpty == false {
+            bookToSell.edition = editionTextField.text!
+        }else{
+            bookToSell.edition = "1"
+        }
+        if selectedDepartment?.isEmpty == false {
+            bookToSell.department = selectedDepartment!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please select a department")
+            return
+        }
+        if selectedCourse?.isEmpty == false {
+            bookToSell.course = selectedCourse!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please select a course")
+            return
+        }
+        if selectedCondition?.isEmpty == false {
+            bookToSell.condition = selectedCondition!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please select the books condition")
+            return
+        }
+        if isbnTextField.text?.isEmpty == false {
+            bookToSell.isbn13 = isbnTextField.text!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please enter an ISBN")
+            return
+        }
+        if priceTextField.text?.isEmpty == false {
+            bookToSell.price = Int(priceTextField.text!)!
+        }else{
+            SVProgressHUD.showError(withStatus: "Please enter an asking price")
+            return
+        }
+        
+        postListing(bookToSell: bookToSell)
+    }
+    
+    //post data to firebase
+    func postListing(bookToSell: Book) {
+        
+        let bookObject = [
+            "title":bookToSell.title!,
+            "author":bookToSell.author!,
+            "isbn13":bookToSell.isbn13!,
+            "isbn10":"isbn10",
+            "edition":bookToSell.edition!,
+            "department":bookToSell.department!,
+            "course":bookToSell.course!,
+            "condition":bookToSell.condition!,
+            "price":bookToSell.price!,
+            "imageURL":"none",
+            "listedBy":userID!
+            ] as [String:Any]
+        
+        myDatabase.child("listings").child(bookToSell.isbn13!).childByAutoId().setValue(bookObject)
+        
+        //notify user when book is listed
+        SVProgressHUD.showSuccess(withStatus: "Your textbook has been listed for sale")
+        
+        //return to previous view controller
+        navigationController?.popToRootViewController(animated: true)
     }
 }

@@ -34,9 +34,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         
         SVProgressHUD.show()
-        
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-        
         SVProgressHUD.dismiss()
             
             if error != nil{
@@ -48,6 +46,7 @@ class LoginViewController: UIViewController {
                 }
             }else{
                 self.performSegue(withIdentifier: "loginSuccess", sender: self)
+                userID = Auth.auth().currentUser?.uid
             }
         }
     }
