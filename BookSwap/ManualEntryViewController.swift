@@ -50,9 +50,6 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SVProgressHUD.setBorderColor(UIColor(red:0.15, green:0.33, blue:0.12, alpha:1.0))
-        SVProgressHUD.setBorderWidth(1)
-        
         createPicker(myPicker: departmentPicker, textField: departmentTextField)
         createPicker(myPicker: coursePicker, textField: courseTextField)
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)

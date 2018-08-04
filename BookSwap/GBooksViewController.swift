@@ -53,7 +53,6 @@ class GBooksViewController: UIViewController {
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
                 
                 if let items = json["items"] as? [[String: AnyObject]] {
-                    print("got items", items)
                     self.books = []
                     
                     //for each result make a book and add title
@@ -69,7 +68,6 @@ class GBooksViewController: UIViewController {
                                     authors = authors + temp[i]
                                 }
                                 book.author = authors
-                                print("Author - \(book.author!)")
                             }
                             
                             if let imageLinks = volumeInfo["imageLinks"] as? [String: String] {
@@ -84,10 +82,8 @@ class GBooksViewController: UIViewController {
                                     let firstIsbn = isbns[i]
                                     if firstIsbn["type"] == "ISBN_10" {
                                         book.isbn10 = firstIsbn["identifier"]
-                                        print("isbn10 - \(book.isbn10!)")
                                     }else{
                                         book.isbn13 = firstIsbn["identifier"]
-                                        print("isbn13 - \(book.isbn13!)")
                                     }
                                 }
                             }
@@ -95,15 +91,11 @@ class GBooksViewController: UIViewController {
                             self.books.append(book)
                         }
                     }
-                    print(self.books)
-                    
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
             }
             SVProgressHUD.dismiss()
         }.resume()
-        
-        print("URL: \(url)")
         
         //hide keyboard
         self.searchBar.endEditing(true)

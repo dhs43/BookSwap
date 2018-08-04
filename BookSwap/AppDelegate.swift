@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import SVProgressHUD
 
 let myDatabase = Database.database().reference()
 var userID = Auth.auth().currentUser?.uid
@@ -19,11 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         //Firebase
         FirebaseApp.configure()
-        //Database.database().isPersistenceEnabled = true
         
         //check if user is already logged in
         if Auth.auth().currentUser != nil {
@@ -38,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //unique userID
         userID = Auth.auth().currentUser?.uid
+        
+        //set app-wide settings for progress indicators
+        SVProgressHUD.setBorderColor(UIColor(red:0.72, green:0.69, blue:0.52, alpha:1.0))
+        SVProgressHUD.setBorderWidth(1)
         
         return true
     }

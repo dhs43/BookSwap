@@ -12,17 +12,21 @@ import Kingfisher
 
 //array to store multiple results
 var listings = [Book]()
+//for textbook image covers
+let cache = KingfisherManager.shared.cache
 
 class ListingsViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var directionsTextLabel: UILabel!
     
-    //for textbook image covers
-    let cache = KingfisherManager.shared.cache
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.isHidden = true
         
         searchBar.delegate = self
         tableView.delegate = self
@@ -33,8 +37,10 @@ class ListingsViewController: UIViewController {
     //search Google Books for a keyword
     func searchForSale(query: String) {
         
+        directionsTextLabel.isHidden = true
+        tableView.isHidden = false
         listings.removeAll()
-        
+        DispatchQueue.main.async { self.tableView.reloadData() }
         SVProgressHUD.show(withStatus: "Searching")
         
         //clear previous caches of textbook images
@@ -87,8 +93,6 @@ class ListingsViewController: UIViewController {
                                         book.isbn10 = firstIsbn["identifier"]
                                     }else{
                                         book.isbn13 = firstIsbn["identifier"]
-                                        print(book.isbn13!)
-                                        print(book.title!)
                                     }
                                 }
                             }
@@ -96,22 +100,19 @@ class ListingsViewController: UIViewController {
                             //adding book to an array of books
                             myDatabase.child("listings").child(book.isbn13!).observeSingleEvent(of: .value, with: { (snapshot) in
                                 if snapshot.exists() {
-                                    print("It exists dude.")
-                                    listings.append(book)
-                                    print("LISTING: \(book.title!)")
-                                    print("Listings: \(listings)")
-                                }else{
-                                    myDatabase.child("listings").child(book.isbn10!).observeSingleEvent(of: .value, with: { (snapshot) in
-                                        if snapshot.exists() {
-                                            print("It exists dude.")
-                                            listings.append(book)
-                                            print("LISTING: \(book.title!)")
-                                        }else{
-                                            print("It can't find \(book.title!).")
-                                        }
-                                    })
+                                    if listings.contains(book) == false{
+                                        listings.append(book)
+                                    }
+                                    DispatchQueue.main.async { self.tableView.reloadData() }
                                 }
-                                DispatchQueue.main.async { self.tableView.reloadData() }
+                            })
+                            myDatabase.child("listings").child(book.isbn10!).observeSingleEvent(of: .value, with: { (snapshot) in
+                                if snapshot.exists() {
+                                    if listings.contains(book) == false{
+                                        listings.append(book)
+                                    }
+                                    DispatchQueue.main.async { self.tableView.reloadData() }
+                                }
                             })
                         }
                     }
