@@ -10,17 +10,16 @@ import UIKit
 import SVProgressHUD
 import Kingfisher
 
+//array to store multiple results
+var books = [Book]()
+//search variable for ISBN
+var myQuery = ""
+
 
 class GBooksViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    
-    //for textbook image covers
-    let cache = KingfisherManager.shared.cache
-    
-    //array to store multiple results
-    var books = [Book]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +28,10 @@ class GBooksViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        if myQuery != "" {
+            searchBar.text = myQuery
+            self.searchGoogleBooks(query: myQuery)
+        }
     }
 
     //search Google Books for a keyword
@@ -43,7 +46,7 @@ class GBooksViewController: UIViewController {
         
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=20"
+        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=40"
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             if error != nil {
@@ -53,7 +56,7 @@ class GBooksViewController: UIViewController {
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
                 
                 if let items = json["items"] as? [[String: AnyObject]] {
-                    self.books = []
+                    books = []
                     
                     //for each result make a book and add title
                     for item in items {
@@ -65,7 +68,11 @@ class GBooksViewController: UIViewController {
                             if let temp = volumeInfo["authors"] as? [String] {
                                 var authors = ""
                                 for i in 0..<temp.count {
-                                    authors = authors + temp[i]
+                                    if temp.count > 1 {
+                                        authors = authors + temp[i] + ", "
+                                    }else{
+                                        authors = authors + temp[i]
+                                    }
                                 }
                                 book.author = authors
                             }
@@ -88,7 +95,7 @@ class GBooksViewController: UIViewController {
                                 }
                             }
                             //adding book to an array of books
-                            self.books.append(book)
+                            books.append(book)
                         }
                     }
                     DispatchQueue.main.async { self.tableView.reloadData() }
@@ -115,7 +122,7 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.books.count
+        return books.count
     }
     
     
@@ -152,13 +159,20 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedBook = books[indexPath.row]
+        performSegue(withIdentifier: "sellSearchedBook", sender: self)
+    }
 }
 
 
 extension GBooksViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let text = searchBar.text
-        self.searchGoogleBooks(query: text!)
+        myQuery = searchBar.text!
+        self.searchGoogleBooks(query: myQuery)
     }
 }

@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //set app-wide settings for progress indicators
         SVProgressHUD.setBorderColor(UIColor(red:0.72, green:0.69, blue:0.52, alpha:1.0))
         SVProgressHUD.setBorderWidth(1)
+        SVProgressHUD.setMinimumDismissTimeInterval(2)
         
         return true
     }

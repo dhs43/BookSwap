@@ -167,7 +167,7 @@ extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         //cover image
-        if listings[indexPath.row].imageURL != nil {
+        if listings[indexPath.row].imageURL != nil && listings[indexPath.row].imageURL != "none" {
             let url = URL(string: listings[indexPath.row].imageURL!)
             //cache image using Kingfisher
             cell.bookCoverView.kf.setImage(with: url)
@@ -183,17 +183,6 @@ extension ListingsViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let text = searchBar.text
-        //listings.removeAll()
         searchForSale(query: text!)
-        print(listings)
     }
 }
-
-
-
-
-
-
-
-
-

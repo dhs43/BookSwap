@@ -14,14 +14,15 @@ class ISBNViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             self.view.endEditing(true)
         }
-        
+    
+    
+    //Creating session
+    let session = AVCaptureSession()
+    
         var video = AVCaptureVideoPreviewLayer()
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            
-            //Creating session
-            let session = AVCaptureSession()
             
             //Define capture device
             let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
@@ -59,14 +60,9 @@ class ISBNViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 {
                     if object.type == AVMetadataObject.ObjectType.ean13
                     {
-                        //display value of code or copy it
-                        let alert = UIAlertController(title: "ISBN Code", message: object.stringValue, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
-                        alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: {(nil) in
-                            UIPasteboard.general.string = object.stringValue
-                        }))
-                        
-                        present(alert, animated: true, completion: nil)
+                        myQuery = object.stringValue!
+                        performSegue(withIdentifier: "lookupISBN", sender: self)
+                        session.stopRunning()
                     }
                 }
             }

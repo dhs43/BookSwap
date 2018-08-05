@@ -9,7 +9,12 @@
 import UIKit
 import SVProgressHUD
 
+//global for data from keyword search selection
+var selectedBook = Book()
+
 class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    let bookToSell = Book()
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var authorTextField: UITextField!
@@ -45,7 +50,6 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
                       "Good",
                       "Poor",
                       "Damaged"]
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +58,17 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         createPicker(myPicker: coursePicker, textField: courseTextField)
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
         
+        //transfer data from selection in previous view
+        if selectedBook.title != nil {
+            titleTextField.text = selectedBook.title
+            authorTextField.text = selectedBook.author
+            isbnTextField.text = selectedBook.isbn13
+            bookToSell.isbn10 = selectedBook.isbn10
+            bookToSell.imageURL = selectedBook.imageURL
+        }else{
+            bookToSell.isbn10 = "isbn10"
+            bookToSell.imageURL = "none"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,8 +140,6 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         SVProgressHUD.setMinimumDismissTimeInterval(1)
         
-        let bookToSell = Book()
-        
         if titleTextField.text?.isEmpty == false {
             bookToSell.title = titleTextField.text!
         }else{
@@ -185,13 +198,13 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             "title":bookToSell.title!,
             "author":bookToSell.author!,
             "isbn13":bookToSell.isbn13!,
-            "isbn10":"isbn10",
+            "isbn10":bookToSell.isbn10!,
             "edition":bookToSell.edition!,
             "department":bookToSell.department!,
             "course":bookToSell.course!,
             "condition":bookToSell.condition!,
             "price":bookToSell.price!,
-            "imageURL":"none",
+            "imageURL":bookToSell.imageURL!,
             "listedBy":userID!
             ] as [String:Any]
         
