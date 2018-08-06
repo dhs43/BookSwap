@@ -24,7 +24,7 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var conditionTextField: UITextField!
     @IBOutlet weak var isbnTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
-
+    
     
     var selectedDepartment: String?
     var selectedCourse: String?
@@ -53,7 +53,8 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        addKeyboardDoneButton()
         createPicker(myPicker: departmentPicker, textField: departmentTextField)
         createPicker(myPicker: coursePicker, textField: courseTextField)
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
@@ -70,7 +71,22 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             bookToSell.imageURL = "none"
         }
     }
-
+    
+    //create toolbar w/ done button
+    func addKeyboardDoneButton() {
+        let keyboardToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        keyboardToolbar.barStyle = .default
+        keyboardToolbar.items = [
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ManualEntryViewController.dismissKeyboard))]
+        keyboardToolbar.sizeToFit()
+        titleTextField.inputAccessoryView = keyboardToolbar
+        authorTextField.inputAccessoryView = keyboardToolbar
+        editionTextField.inputAccessoryView = keyboardToolbar
+        priceTextField.inputAccessoryView = keyboardToolbar
+        isbnTextField.inputAccessoryView = keyboardToolbar
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -93,6 +109,7 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         textField.inputAccessoryView = toolBar
     }
+    
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -182,7 +199,7 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         if priceTextField.text?.isEmpty == false {
-            bookToSell.price = Int(priceTextField.text!)!
+            bookToSell.price = Float(priceTextField.text!)!
         }else{
             SVProgressHUD.showError(withStatus: "Please enter an asking price")
             return

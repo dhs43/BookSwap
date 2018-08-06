@@ -50,10 +50,17 @@ class GBooksViewController: UIViewController {
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             if error != nil {
-                print(error!.localizedDescription)
+                SVProgressHUD.showError(withStatus: "\(error!.localizedDescription)")
             }else{
                 
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
+                
+                if let totalItems = json["totalItems"] as? Int {
+                    if totalItems == 0 {
+                        SVProgressHUD.showError(withStatus: "No matches found")
+                        return
+                    }
+                }
                 
                 if let items = json["items"] as? [[String: AnyObject]] {
                     books = []
@@ -64,6 +71,7 @@ class GBooksViewController: UIViewController {
                             let book = Book()
                             book.title = volumeInfo["title"] as? String
                             
+
                             //putting all authors into one string
                             if let temp = volumeInfo["authors"] as? [String] {
                                 var authors = ""
@@ -99,9 +107,9 @@ class GBooksViewController: UIViewController {
                         }
                     }
                     DispatchQueue.main.async { self.tableView.reloadData() }
+                    SVProgressHUD.dismiss()
                 }
             }
-            SVProgressHUD.dismiss()
         }.resume()
         
         //hide keyboard
@@ -132,7 +140,11 @@ extension GBooksViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = Bundle.main.loadNibNamed("BookItemTableViewCell", owner: self, options: nil)?.first as! BookItemTableViewCell
         
         //title
-        cell.titleLabel.text = books[indexPath.row].title!
+        if books[indexPath.row].title != nil {
+            cell.titleLabel.text = books[indexPath.row].title
+        }else{
+            cell.titleLabel.text = "(Title Unknown)"
+        }
         //author
         if books[indexPath.row].author != nil{
             cell.authorLabel.text = "Author: \(books[indexPath.row].author!)"

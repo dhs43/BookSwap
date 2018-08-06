@@ -48,9 +48,11 @@ class ListingsViewController: UIViewController {
         cache.clearDiskCache()
         cache.cleanExpiredDiskCache()
         
+        let startingIndex = 0
+        
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=40"
+        let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=40&startIndex=\(startingIndex)"
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             if error != nil {
@@ -58,6 +60,13 @@ class ListingsViewController: UIViewController {
             }else{
                 
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
+                
+                if let totalItems = json["totalItems"] as? Int {
+                    if totalItems == 0 {
+                        SVProgressHUD.showError(withStatus: "No matches found")
+                        return
+                    }
+                }
                 
                 if let items = json["items"] as? [[String: AnyObject]] {
                     
@@ -150,7 +159,11 @@ extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = Bundle.main.loadNibNamed("BookItemTableViewCell", owner: self, options: nil)?.first as! BookItemTableViewCell
         
         //title
-        cell.titleLabel.text = listings[indexPath.row].title!
+        if listings[indexPath.row].title != nil {
+            cell.titleLabel.text = listings[indexPath.row].title
+        }else{
+            cell.titleLabel.text = "(Title Unknown)"
+        }
         //author
         if listings[indexPath.row].author != nil{
             cell.authorLabel.text = "Author: \(listings[indexPath.row].author!)"
@@ -186,3 +199,7 @@ extension ListingsViewController: UISearchBarDelegate {
         searchForSale(query: text!)
     }
 }
+
+
+
+
