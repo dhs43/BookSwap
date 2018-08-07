@@ -34,6 +34,9 @@ class ListingsViewController: UIViewController {
         
     }
     
+    var startingIndex = 0
+    var needToContinueSearch = true
+    
     //search Google Books for a keyword
     func searchForSale(query: String) {
         
@@ -48,8 +51,6 @@ class ListingsViewController: UIViewController {
         cache.clearDiskCache()
         cache.cleanExpiredDiskCache()
         
-        let startingIndex = 0
-        
         //encode keyword(s) to be appended to URL
         let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=40&startIndex=\(startingIndex)"
@@ -61,18 +62,19 @@ class ListingsViewController: UIViewController {
                 
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
                 
-                if let totalItems = json["totalItems"] as? Int {
-                    if totalItems == 0 {
-                        SVProgressHUD.showError(withStatus: "No matches found")
-                        return
-                    }
+                let totalItems = json["totalItems"] as! Int
+                if totalItems == 0 {
+                    SVProgressHUD.showError(withStatus: "No matches found")
+                    return
                 }
                 
                 if let items = json["items"] as? [[String: AnyObject]] {
                     
                     //for each result make a book and add title
                     for item in items {
+                        
                         if let volumeInfo = item["volumeInfo"] as? [String: AnyObject] {
+                            
                             let book = Book()
                             //default values
                             book.isbn13 = "isbn13"
@@ -98,10 +100,15 @@ class ListingsViewController: UIViewController {
                                 for i in 0..<isbns.count {
                                     
                                     let firstIsbn = isbns[i]
-                                    if firstIsbn["type"] == "ISBN_10" {
-                                        book.isbn10 = firstIsbn["identifier"]
-                                    }else{
-                                        book.isbn13 = firstIsbn["identifier"]
+                                    //checks if isbns have invalid characters
+                                    let isImproperlyFormatted = firstIsbn["identifier"]!.contains {".$#[]/".contains($0)}
+                                    
+                                    if isImproperlyFormatted == false {
+                                        if firstIsbn["type"] == "ISBN_10" {
+                                            book.isbn10 = firstIsbn["identifier"]
+                                        }else{
+                                            book.isbn13 = firstIsbn["identifier"]
+                                        }
                                     }
                                 }
                             }
@@ -111,16 +118,30 @@ class ListingsViewController: UIViewController {
                                 if snapshot.exists() {
                                     if listings.contains(book) == false{
                                         listings.append(book)
+                                        self.needToContinueSearch = false
                                     }
                                     DispatchQueue.main.async { self.tableView.reloadData() }
+                                }
+                                if self.startingIndex < totalItems && self.startingIndex < 500 {
+                                    if self.needToContinueSearch {
+                                        self.startingIndex += 40
+                                        self.searchForSale(query: query)
+                                    }
                                 }
                             })
                             myDatabase.child("listings").child(book.isbn10!).observeSingleEvent(of: .value, with: { (snapshot) in
                                 if snapshot.exists() {
                                     if listings.contains(book) == false{
                                         listings.append(book)
+                                        self.needToContinueSearch = false
                                     }
                                     DispatchQueue.main.async { self.tableView.reloadData() }
+                                }
+                                if self.startingIndex < totalItems && self.startingIndex < 500 {
+                                    if self.needToContinueSearch {
+                                        self.startingIndex += 40
+                                        self.searchForSale(query: query)
+                                    }
                                 }
                             })
                         }
@@ -141,6 +162,8 @@ class ListingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
+
 
 extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
     
