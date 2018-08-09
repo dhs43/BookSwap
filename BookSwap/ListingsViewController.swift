@@ -10,8 +10,6 @@ import UIKit
 import SVProgressHUD
 import Kingfisher
 
-//array to store multiple results
-var listings = [Book]()
 //for textbook image covers
 let cache = KingfisherManager.shared.cache
 
@@ -21,7 +19,8 @@ class ListingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var directionsTextLabel: UILabel!
     
-
+    //array to store multiple results
+    var listings = [Book]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +31,15 @@ class ListingsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        if myQuery != "" {
+            searchBar.text = myQuery
+            self.searchForSale(query: searchBar.text!, startingIndex: 0)
+        }
     }
     
-    var startingIndex = 0
-    var needToContinueSearch = true
     
     //search Google Books for a keyword
-    func searchForSale(query: String) {
+    func searchForSale(query: String, startingIndex: Int) {
         
         directionsTextLabel.isHidden = true
         tableView.isHidden = false
@@ -51,8 +52,7 @@ class ListingsViewController: UIViewController {
         cache.clearDiskCache()
         cache.cleanExpiredDiskCache()
         
-        //encode keyword(s) to be appended to URL
-        let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
         let url = "https://www.googleapis.com/books/v1/volumes?q=\(query)&&maxResults=40&startIndex=\(startingIndex)"
         
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
@@ -62,96 +62,91 @@ class ListingsViewController: UIViewController {
                 
                 let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
                 
-                let totalItems = json["totalItems"] as! Int
-                if totalItems == 0 {
-                    SVProgressHUD.showError(withStatus: "No matches found")
-                    return
-                }
-                
-                if let items = json["items"] as? [[String: AnyObject]] {
+                if json["error"] == nil {
                     
-                    //for each result make a book and add title
-                    for item in items {
+                    let totalItems = json["totalItems"] as? Int
+                    if totalItems == 0 {
+                        SVProgressHUD.showError(withStatus: "No matches found")
+                        return
+                    }
+                    
+                    var currentItem = 0
+                    
+                    if let items = json["items"] as? [[String: AnyObject]] {
                         
-                        if let volumeInfo = item["volumeInfo"] as? [String: AnyObject] {
+                        currentItem += 1
+                        
+                        //for each result make a book and add title
+                        for item in items {
                             
-                            let book = Book()
-                            //default values
-                            book.isbn13 = "isbn13"
-                            book.isbn10 = "isbn10"
-                            book.title = volumeInfo["title"] as? String
-                            
-                            //putting all authors into one string
-                            if let temp = volumeInfo["authors"] as? [String] {
-                                var authors = ""
-                                for i in 0..<temp.count {
-                                    authors = authors + temp[i]
-                                }
-                                book.author = authors
-                            }
-                            
-                            if let imageLinks = volumeInfo["imageLinks"] as? [String: String] {
-                                book.imageURL = imageLinks["thumbnail"]
-                            }
-                            
-                            //assign isbns
-                            if let isbns = volumeInfo["industryIdentifiers"] as? [[String: String]] {
+                            if let volumeInfo = item["volumeInfo"] as? [String: AnyObject] {
                                 
-                                for i in 0..<isbns.count {
+                                let book = Book()
+                                //default values
+                                book.isbn13 = "isbn13"
+                                book.isbn10 = "isbn10"
+                                book.title = volumeInfo["title"] as? String
+                                
+                                //putting all authors into one string
+                                if let temp = volumeInfo["authors"] as? [String] {
+                                    var authors = ""
+                                    for i in 0..<temp.count {
+                                        authors = authors + temp[i]
+                                    }
+                                    book.author = authors
+                                }
+                                
+                                if let imageLinks = volumeInfo["imageLinks"] as? [String: String] {
+                                    book.imageURL = imageLinks["thumbnail"]
+                                }
+                                
+                                //assign isbns
+                                if let isbns = volumeInfo["industryIdentifiers"] as? [[String: String]] {
                                     
-                                    let firstIsbn = isbns[i]
-                                    //checks if isbns have invalid characters
-                                    let isImproperlyFormatted = firstIsbn["identifier"]!.contains {".$#[]/".contains($0)}
-                                    
-                                    if isImproperlyFormatted == false {
-                                        if firstIsbn["type"] == "ISBN_10" {
-                                            book.isbn10 = firstIsbn["identifier"]
-                                        }else{
-                                            book.isbn13 = firstIsbn["identifier"]
+                                    for i in 0..<isbns.count {
+                                        
+                                        let firstIsbn = isbns[i]
+                                        //checks if isbns have invalid characters
+                                        let isImproperlyFormatted = firstIsbn["identifier"]!.contains {".$#[]/".contains($0)}
+                                        
+                                        if isImproperlyFormatted == false {
+                                            if firstIsbn["type"] == "ISBN_10" {
+                                                book.isbn10 = firstIsbn["identifier"]
+                                            }else{
+                                                book.isbn13 = firstIsbn["identifier"]
+                                            }
                                         }
                                     }
                                 }
+                                
+                                //adding book to an array of books
+                                myDatabase.child("listings").child(book.isbn13!).observeSingleEvent(of: .value, with: { (snapshot) in
+                                    if snapshot.exists() {
+                                        if self.listings.contains(book) == false{
+                                            self.listings.append(book)
+                                        }
+                                        DispatchQueue.main.async { self.tableView.reloadData() }
+                                    }
+                                })
+                                myDatabase.child("listings").child(book.isbn10!).observeSingleEvent(of: .value, with: { (snapshot) in
+                                    if snapshot.exists() {
+                                        if self.listings.contains(book) == false{
+                                            self.listings.append(book)
+                                        }
+                                        DispatchQueue.main.async { self.tableView.reloadData() }
+                                    }
+                                })
                             }
-                            
-                            //adding book to an array of books
-                            myDatabase.child("listings").child(book.isbn13!).observeSingleEvent(of: .value, with: { (snapshot) in
-                                if snapshot.exists() {
-                                    if listings.contains(book) == false{
-                                        listings.append(book)
-                                        self.needToContinueSearch = false
-                                    }
-                                    DispatchQueue.main.async { self.tableView.reloadData() }
-                                }
-                                if self.startingIndex < totalItems && self.startingIndex < 500 {
-                                    if self.needToContinueSearch {
-                                        self.startingIndex += 40
-                                        self.searchForSale(query: query)
-                                    }
-                                }
-                            })
-                            myDatabase.child("listings").child(book.isbn10!).observeSingleEvent(of: .value, with: { (snapshot) in
-                                if snapshot.exists() {
-                                    if listings.contains(book) == false{
-                                        listings.append(book)
-                                        self.needToContinueSearch = false
-                                    }
-                                    DispatchQueue.main.async { self.tableView.reloadData() }
-                                }
-                                if self.startingIndex < totalItems && self.startingIndex < 500 {
-                                    if self.needToContinueSearch {
-                                        self.startingIndex += 40
-                                        self.searchForSale(query: query)
-                                    }
-                                }
-                            })
                         }
                     }
+                }else{
+                    return
                 }
             }
-            
             SVProgressHUD.dismiss()
             }.resume()
         
+       
         //hide keyboard
         self.searchBar.endEditing(true)
     }
@@ -219,10 +214,10 @@ extension ListingsViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let text = searchBar.text
-        searchForSale(query: text!)
+        //encode keyword(s) to be appended to URL
+        let query = text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        searchForSale(query: query, startingIndex: 0)
     }
 }
-
-
 
 

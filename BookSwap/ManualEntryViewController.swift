@@ -34,16 +34,11 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     let coursePicker = UIPickerView()
     let conditionsPicker = UIPickerView()
     
-    let departments = ["",
-                       "N/A",
-                       "CS",
-                       "BIOL"]
+    var departments = ["",
+                       "N/A"]
     
-    let courses = ["",
-                   "N/A",
-                   "101",
-                   "102",
-                   "103"]
+    var courses = ["",
+                   "N/A"]
     
     let conditions = ["",
                       "Excellent",
@@ -53,6 +48,16 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //fetching department list
+        myDatabase.child("departments").observeSingleEvent(of: .value) { (snapshot) in
+            if let myData = snapshot.value as? NSDictionary {
+                for name in myData.keyEnumerator() {
+                    self.departments.append("\(name)")
+                }
+            }
+        }
+        
     
         addKeyboardDoneButton()
         createPicker(myPicker: departmentPicker, textField: departmentTextField)
@@ -143,6 +148,35 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         if pickerView == departmentPicker {
             selectedDepartment = departments[row]
             departmentTextField.text = selectedDepartment
+            
+            myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
+                
+                //fills in coursePickerView with selected department's courses
+                self.courses.removeAll()
+                self.courses.append("")
+                self.courses.append("N/A")
+                if let myData = snapshot.value as? NSDictionary {
+                    
+                    var stringList: [String] = [""]
+                    var intList: [Int] = [0]
+                    stringList.removeAll()
+                    intList.removeAll()
+                    
+                    for name in myData.keyEnumerator() {
+                        stringList.append("\(name)")
+                    }
+                    
+                    for string in stringList {
+                        intList.append(Int(string)!)
+                    }
+                    stringList = stringList.sorted()
+                    for course in stringList {
+                        self.courses.append("\(course)")
+                    }
+                    
+                }
+            }
+            
         }else if pickerView == coursePicker {
             selectedCourse = courses[row]
             courseTextField.text = selectedCourse
@@ -225,7 +259,23 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             "listedBy":userID!
             ] as [String:Any]
         
-        myDatabase.child("listings").child(bookToSell.isbn13!).childByAutoId().setValue(bookObject)
+        var defaultIsbn: String
+        if bookToSell.isbn13 != "isbn13" {
+            defaultIsbn = bookToSell.isbn13!
+        }else if bookToSell.isbn10 != "isbn10" {
+            defaultIsbn = bookToSell.isbn10!
+        }else{
+            SVProgressHUD.showError(withStatus: "Invalid ISBNs")
+            return
+        }
+        
+        myDatabase.child("listings").child(defaultIsbn).childByAutoId().setValue(bookObject)
+        
+        if bookToSell.department == "N/A" {
+            myDatabase.child("departments").child("Other").child(defaultIsbn).setValue(defaultIsbn)
+        }else{
+            myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
+        }
         
         //notify user when book is listed
         SVProgressHUD.showSuccess(withStatus: "Your textbook has been listed for sale")
@@ -233,4 +283,8 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         //return to previous view controller
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    
+    
+    
 }
