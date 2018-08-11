@@ -15,12 +15,11 @@ let cache = KingfisherManager.shared.cache
 
 class ListingsViewController: UIViewController {
     
+    var listings = [Book]()
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var directionsTextLabel: UILabel!
-    
-    //array to store multiple results
-    var listings = [Book]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

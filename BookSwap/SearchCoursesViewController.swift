@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import SVProgressHUD
 
 class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -32,7 +34,11 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         //fetching department list
+        SVProgressHUD.show(withStatus: "Fetching data")
         departments.removeAll()
         myDatabase.child("departments").observeSingleEvent(of: .value) { (snapshot) in
             if let myData = snapshot.value as? NSDictionary {
@@ -41,6 +47,10 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
                 }
                 self.departments = self.departments.sorted()
                 self.departments.insert("", at: 0)
+                
+                SVProgressHUD.dismiss()
+            }else{
+                SVProgressHUD.dismiss()
             }
         }
         
@@ -50,18 +60,48 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     
-    func searchCourses(department: String, course: String) {
-        myDatabase.child("departments").child(department).child(course).observeSingleEvent(of: .value) { (courseSnapshot) in
-            if let data = courseSnapshot.value as? [String:String] {
+    func searchByCourse(department: String, course: String) {
+        
+        var isbnArray: [String] = [""]
+        isbnArray.removeAll()
+        
+        myDatabase.child("departments").child("\(department)").child("\(course)").observeSingleEvent(of: .value) { (snapshot) in
+            if let data = snapshot.value as? NSDictionary {
+                for isbn in data.keyEnumerator() {
+                    if isbn as? String != "placeholder"{
+                        isbnArray.append("\(isbn)")
+                        
+                        
+                    }
+                }
+            }
+            
+            for isbn in isbnArray {
                 
-                for value in data {
-                    let isbn = value.value
-                    print(isbn)
-                    
-                    myDatabase.child("listings").child("\(isbn)").observeSingleEvent(of: .value, with: { (snapshot) in
-                        if snapshot.exists() {
+                let listingsRef = myDatabase.child("listings").child(isbn)
+                
+                listingsRef.observeSingleEvent(of: .value) { (snapshot) in
+                    for child in snapshot.children {
+                        
+                        let data = child as! DataSnapshot //each listing
+                        let bookData = data.value as! [String: Any]
+                        
+                        let book = Book()
+                        book.title = bookData["title"] as? String
+                        book.author = bookData["author"] as? String
+                        book.isbn13 = bookData["isbn13"] as? String
+                        book.isbn10 = bookData["isbn10"] as? String
+                        book.imageURL = bookData["imageURL"] as? String
+                        book.edition = bookData["edition"] as? String
+                        book.condition = bookData["condition"] as? String
+                        book.department = bookData["department"] as? String
+                        book.course = bookData["course"] as? String
+                        book.listedBy = bookData["listedBy"] as? String
+                        
+                        self.listings.append(book)
+                        DispatchQueue.main.async { self.tableView.reloadData()
                         }
-                    })
+                    }
                 }
             }
         }
@@ -154,9 +194,11 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
     }
     
+    //search using department and course from picker views
     @IBAction func searchButtonPressed(_ sender: Any) {
+        
         if selectedDepartment != nil && selectedCourse != nil {
-            self.searchCourses(department: self.selectedDepartment!, course: self.selectedCourse!)
+            self.searchByCourse(department: self.selectedDepartment!, course: self.selectedCourse!)
         }
     }
     
@@ -181,12 +223,42 @@ extension SearchCoursesViewController: UITableViewDelegate, UITableViewDataSourc
         
         let cell = Bundle.main.loadNibNamed("BookItemTableViewCell", owner: self, options: nil)?.first as! BookItemTableViewCell
         
+        //title
+        if listings[indexPath.row].title != nil {
+            cell.titleLabel.text = listings[indexPath.row].title
+        }else{
+            cell.titleLabel.text = "(Title Unknown)"
+        }
+        //author
+        if listings[indexPath.row].author != nil{
+            cell.authorLabel.text = "Author: \(listings[indexPath.row].author!)"
+        }else{
+            cell.authorLabel.text = "Author Unknown"
+        }
+        //isbn
+        if listings[indexPath.row].isbn13 != nil {
+            cell.isbnLabel.text = "ISBN: \(listings[indexPath.row].isbn13!)"
+        }else if listings[indexPath.row].isbn10 != nil{
+            cell.isbnLabel.text = "ISBN: \(listings[indexPath.row].isbn10!)"
+        }else{
+            cell.isbnLabel.text = "ISBN Unknown"
+        }
         
+        //cover image
+        if listings[indexPath.row].imageURL != nil && listings[indexPath.row].imageURL != "none" {
+            let url = URL(string: listings[indexPath.row].imageURL!)
+            //cache image using Kingfisher
+            cell.bookCoverView.kf.setImage(with: url)
+        }else{
+            cell.bookCoverView.image = #imageLiteral(resourceName: "noCoverImage")
+        }
         
         return cell
     }
     
 }
+
+
 
 
 
