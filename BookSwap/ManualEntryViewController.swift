@@ -51,11 +51,14 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         //fetching department list
         myDatabase.child("departments").observeSingleEvent(of: .value) { (snapshot) in
+            self.departments.removeAll()
             if let myData = snapshot.value as? NSDictionary {
                 for name in myData.keyEnumerator() {
                     self.departments.append("\(name)")
+                    self.departments = self.departments.sorted()
                 }
             }
+            self.departments.insert("", at: 0)
         }
         
     
@@ -145,36 +148,43 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         if pickerView == departmentPicker {
             selectedDepartment = departments[row]
             departmentTextField.text = selectedDepartment
             
-            myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
-                
-                //fills in coursePickerView with selected department's courses
-                self.courses.removeAll()
-                self.courses.append("")
-                self.courses.append("N/A")
-                if let myData = snapshot.value as? NSDictionary {
+            if selectedDepartment != "" && selectedDepartment != "- Other -" {
+                myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
                     
-                    var stringList: [String] = [""]
-                    var intList: [Int] = [0]
-                    stringList.removeAll()
-                    intList.removeAll()
-                    
-                    for name in myData.keyEnumerator() {
-                        stringList.append("\(name)")
+                    //fills in coursePickerView with selected department's courses
+                    self.courses.removeAll()
+                    self.courses.append("")
+                    self.courses.append("N/A")
+                    if let myData = snapshot.value as? NSDictionary {
+                        
+                        var stringList: [String] = [""]
+                        var intList: [Int] = [0]
+                        stringList.removeAll()
+                        intList.removeAll()
+                        
+                        for name in myData.keyEnumerator() {
+                            stringList.append("\(name)")
+                        }
+                        
+                        for string in stringList {
+                            intList.append(Int(string)!)
+                        }
+                        stringList = stringList.sorted()
+                        for course in stringList {
+                            self.courses.append("\(course)")
+                        }
+                        
                     }
-                    
-                    for string in stringList {
-                        intList.append(Int(string)!)
-                    }
-                    stringList = stringList.sorted()
-                    for course in stringList {
-                        self.courses.append("\(course)")
-                    }
-                    
                 }
+            }else{
+                courses.removeAll()
+                courses.append("")
+                courses.append("N/A")
             }
             
         }else if pickerView == coursePicker {
@@ -271,10 +281,9 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         myDatabase.child("listings").child(defaultIsbn).childByAutoId().setValue(bookObject)
         
-        if bookToSell.department == "N/A" {
-            myDatabase.child("departments").child("Other").child(defaultIsbn).setValue(defaultIsbn)
-        }else{
-            myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
+        if bookToSell.department == "- Other -" {
+            myDatabase.child("departments").child("- Other -").child(defaultIsbn).setValue(defaultIsbn)
+        }else{ myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
         }
         
         //notify user when book is listed
@@ -283,8 +292,11 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         //return to previous view controller
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
-    
-    
 }
+
+
+
+
+
+
+

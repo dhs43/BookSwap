@@ -20,6 +20,7 @@ class ListingsViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var directionsTextLabel: UILabel!
+    @IBOutlet weak var searchSuggestionTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,8 @@ class ListingsViewController: UIViewController {
     func searchForSale(query: String, startingIndex: Int) {
         
         directionsTextLabel.isHidden = true
+        searchSuggestionTextLabel.isHidden = true
+        tableView.setContentOffset(.zero, animated: true)
         tableView.isHidden = false
         listings.removeAll()
         DispatchQueue.main.async { self.tableView.reloadData() }
@@ -69,11 +72,7 @@ class ListingsViewController: UIViewController {
                         return
                     }
                     
-                    var currentItem = 0
-                    
                     if let items = json["items"] as? [[String: AnyObject]] {
-                        
-                        currentItem += 1
                         
                         //for each result make a book and add title
                         for item in items {
@@ -145,7 +144,7 @@ class ListingsViewController: UIViewController {
             SVProgressHUD.dismiss()
             }.resume()
         
-       
+        
         //hide keyboard
         self.searchBar.endEditing(true)
     }

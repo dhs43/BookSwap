@@ -59,54 +59,64 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
         createPicker(myPicker: coursePicker, textField: courseTextField)
     }
     
-    
+    //search using department and course from picker views
     func searchByCourse(department: String, course: String) {
         
         var isbnArray: [String] = [""]
         isbnArray.removeAll()
+        listings.removeAll()
         
+        
+        //get isbns associated with course
         myDatabase.child("departments").child("\(department)").child("\(course)").observeSingleEvent(of: .value) { (snapshot) in
             if let data = snapshot.value as? NSDictionary {
                 for isbn in data.keyEnumerator() {
                     if isbn as? String != "placeholder"{
                         isbnArray.append("\(isbn)")
-                        
-                        
                     }
                 }
             }
             
+            //show each book associated with isbns
             for isbn in isbnArray {
                 
                 let listingsRef = myDatabase.child("listings").child(isbn)
                 
+                var bookCounter = 0
+                
                 listingsRef.observeSingleEvent(of: .value) { (snapshot) in
                     for child in snapshot.children {
                         
-                        let data = child as! DataSnapshot //each listing
-                        let bookData = data.value as! [String: Any]
+                        bookCounter += 1
                         
-                        let book = Book()
-                        book.title = bookData["title"] as? String
-                        book.author = bookData["author"] as? String
-                        book.isbn13 = bookData["isbn13"] as? String
-                        book.isbn10 = bookData["isbn10"] as? String
-                        book.imageURL = bookData["imageURL"] as? String
-                        book.edition = bookData["edition"] as? String
-                        book.condition = bookData["condition"] as? String
-                        book.department = bookData["department"] as? String
-                        book.course = bookData["course"] as? String
-                        book.listedBy = bookData["listedBy"] as? String
-                        
-                        self.listings.append(book)
-                        DispatchQueue.main.async { self.tableView.reloadData()
+                        //to get only the first book for each isbn
+                        //apparently snapshot.children[0] doesn't work
+                        if bookCounter == 1 {
+                            
+                            let data = child as! DataSnapshot //each listing
+                            let bookData = data.value as! [String: Any]
+                            
+                            let book = Book()
+                            book.title = bookData["title"] as? String
+                            book.author = bookData["author"] as? String
+                            book.isbn13 = bookData["isbn13"] as? String
+                            book.isbn10 = bookData["isbn10"] as? String
+                            book.imageURL = bookData["imageURL"] as? String
+                            book.edition = bookData["edition"] as? String
+                            book.condition = bookData["condition"] as? String
+                            book.department = bookData["department"] as? String
+                            book.course = bookData["course"] as? String
+                            book.listedBy = bookData["listedBy"] as? String
+                            
+                            self.listings.append(book)
+                            DispatchQueue.main.async { self.tableView.reloadData() }
                         }
                     }
                 }
             }
         }
     }
-    
+
     //create picker views
     func createPicker(myPicker: UIPickerView, textField: UITextField) {
         //create picker
@@ -157,7 +167,7 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
             
             myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
                 
-                if self.selectedDepartment != "Other" {
+                if self.selectedDepartment != "- Other -" {
                     
                     //fills in coursePickerView with selected department's courses
                     self.courses.removeAll()
@@ -194,7 +204,7 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
     }
     
-    //search using department and course from picker views
+    //trigger search
     @IBAction func searchButtonPressed(_ sender: Any) {
         
         if selectedDepartment != nil && selectedCourse != nil {
@@ -255,7 +265,6 @@ extension SearchCoursesViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
-    
 }
 
 

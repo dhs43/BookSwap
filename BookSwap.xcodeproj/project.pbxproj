@@ -99,13 +99,10 @@
 			children = (
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
-				63B5D95B211188E30010DE97 /* ISBNViewController.swift */,
-				63926993210D9308007F2B4D /* GBooksViewController.swift */,
-				63AE7335211BBFBB004E3D3D /* ISBNSearchViewController.swift */,
-				63ACB4BA211273C3008B9F8A /* ListingsViewController.swift */,
 				63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */,
-				633C2023211CB67900BE481A /* SearchCoursesViewController.swift */,
+				63B5D95B211188E30010DE97 /* ISBNViewController.swift */,
 				63926995210D9977007F2B4D /* Book.swift */,
+				633D66FD211F6BEF00629925 /* Search */,
 				63296CC42101D3C5008DA161 /* Account */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
 				6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */,
@@ -127,6 +124,17 @@
 				63BD4C6F21003FC60096C537 /* AccountViewController.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		633D66FD211F6BEF00629925 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				63926993210D9308007F2B4D /* GBooksViewController.swift */,
+				63ACB4BA211273C3008B9F8A /* ListingsViewController.swift */,
+				63AE7335211BBFBB004E3D3D /* ISBNSearchViewController.swift */,
+				633C2023211CB67900BE481A /* SearchCoursesViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		A2DF49A32FF90AC8475D6F86 /* Pods */ = {

@@ -13,10 +13,14 @@ import FirebaseDatabase
 class AccountViewController: UIViewController {
 
     @IBOutlet weak var usernameTextLabel: UILabel!
+    @IBOutlet weak var emailTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        emailTextLabel.layer.masksToBounds = true
+        emailTextLabel.layer.cornerRadius = 5.0;
+        emailTextLabel.isHidden = true
         var username = usernameTextLabel.text
         
         //unique userID
@@ -36,6 +40,19 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //allow user to email bugs or questions
+    @IBAction func reportBugButtonPressed(_ sender: Any) {
+        emailTextLabel.isHidden = false
+        let email = "HSU.Bookswap@gmail.com"
+        if let url = URL(string: "mailto:\(email)") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            }else{
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     //logout
     @IBAction func logOutButton(_ sender: Any) {
         do{
@@ -50,6 +67,4 @@ class AccountViewController: UIViewController {
             print(logoutError)
         }
     }
-    
-
 }

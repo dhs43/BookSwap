@@ -38,6 +38,7 @@ class GBooksViewController: UIViewController {
     func searchGoogleBooks(query: String) {
         
         SVProgressHUD.show(withStatus: "Searching")
+        tableView.setContentOffset(.zero, animated: true)
         
         //clear previous caches of textbook images
         cache.clearMemoryCache()
