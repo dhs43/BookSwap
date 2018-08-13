@@ -83,7 +83,7 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
                 let listingsRef = myDatabase.child("listings").child(isbn)
                 
                 var bookCounter = 0
-                
+            
                 listingsRef.observeSingleEvent(of: .value) { (snapshot) in
                     for child in snapshot.children {
                         
