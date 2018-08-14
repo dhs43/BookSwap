@@ -11,6 +11,7 @@
 		6310453120FD90BE00B97C0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6310453020FD90BE00B97C0C /* ViewController.swift */; };
 		6310453420FD90BE00B97C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453220FD90BE00B97C0C /* Main.storyboard */; };
 		6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */; };
+		6339B8EE2123544B002DDEA8 /* AuthoredListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */; };
 		633C2024211CB67900BE481A /* SearchCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C2023211CB67900BE481A /* SearchCoursesViewController.swift */; };
 		63860E60210EA5B500DB4992 /* BookItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */; };
 		63860E61210EA5B500DB4992 /* BookItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63860E5F210EA5B500DB4992 /* BookItemTableViewCell.xib */; };
@@ -39,6 +40,7 @@
 		6310453320FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthoredListingsViewController.swift; sourceTree = "<group>"; };
 		633C2023211CB67900BE481A /* SearchCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoursesViewController.swift; sourceTree = "<group>"; };
 		63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItemTableViewCell.swift; sourceTree = "<group>"; };
 		63860E5F210EA5B500DB4992 /* BookItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookItemTableViewCell.xib; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		63296CC42101D3C5008DA161 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */,
 				63FF7E9A20FDB7CF00B8FDAF /* LoginViewController.swift */,
 				63FF7E9820FD96B300B8FDAF /* RegisterViewController.swift */,
 				63BD4C71210047090096C537 /* AuthErrorHandling.swift */,
@@ -257,6 +260,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -265,6 +269,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -285,6 +290,7 @@
 				63FF7E9920FD96B300B8FDAF /* RegisterViewController.swift in Sources */,
 				63BD4C72210047090096C537 /* AuthErrorHandling.swift in Sources */,
 				63926994210D9308007F2B4D /* GBooksViewController.swift in Sources */,
+				6339B8EE2123544B002DDEA8 /* AuthoredListingsViewController.swift in Sources */,
 				63B5D95C211188E30010DE97 /* ISBNViewController.swift in Sources */,
 				63B9CAAC2122A9A700C056AB /* ListingDetailsTableViewCell.swift in Sources */,
 				6310453120FD90BE00B97C0C /* ViewController.swift in Sources */,

@@ -284,13 +284,21 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         
-        myDatabase.child("listings").child(defaultIsbn).childByAutoId().setValue(bookObject)
+        //post to listings
+        let ref = myDatabase.child("listings").child(defaultIsbn).childByAutoId()
+        let key = ref.key
+        ref.setValue(bookObject)
         
+        //post ISBN to courses
         if bookToSell.department == "- Other -" {
             myDatabase.child("departments").child("- Other -").child(defaultIsbn).setValue(defaultIsbn)
         }else{
             myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
         }
+        
+        //add to list of books for sale by user
+        myDatabase.child("users").child(userID!).child("authoredListings").child(defaultIsbn).child(key).setValue(key)
+        print(key)
         
         //notify user when book is listed
         SVProgressHUD.showSuccess(withStatus: "Your textbook has been listed for sale")

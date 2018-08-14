@@ -1,8 +1,8 @@
 //
-//  ListingDetailsViewController.swift
+//  AuthoredListingsViewController.swift
 //  BookSwap
 //
-//  Created by David Shapiro on 8/13/18.
+//  Created by David Shapiro on 8/14/18.
 //  Copyright © 2018 David Shapiro. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import Kingfisher
 
-class ListingDetailsViewController: UIViewController {
+class AuthoredListingsViewController: UIViewController {
     
     var listings = [Book]()
     
@@ -23,46 +23,54 @@ class ListingDetailsViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = 265
         
-        viewBooksByISBN()
+        viewAuthoredListings()
         // Do any additional setup after loading the view.
     }
     
-    func viewBooksByISBN() {
+    func viewAuthoredListings() {
         
         //clear previous caches of textbook images
         cache.clearMemoryCache()
         cache.clearDiskCache()
         cache.cleanExpiredDiskCache()
         
-        let listingsRef = myDatabase.child("listings")
+        let userRef = myDatabase.child("users").child(userID!)
         
-        listingsRef.child(defaultISBN).observeSingleEvent(of: .value) { (snapshot) in
-            for child in snapshot.children {
-                
-                let data = child as! DataSnapshot //each listing
-                let bookData = data.value as! [String: Any]
-                
-                let book = Book()
-                
-                book.title = bookData["title"] as? String
-                book.author = bookData["author"] as? String
-                book.isbn13 = bookData["isbn13"] as? String
-                book.isbn10 = bookData["isbn10"] as? String
-                book.imageURL = bookData["imageURL"] as? String
-                book.price = bookData["price"] as? Int
-                book.edition = bookData["edition"] as? String
-                book.condition = bookData["condition"] as? String
-                book.department = bookData["department"] as? String
-                book.course = bookData["course"] as? String
-                book.listedBy = bookData["listedBy"] as? String
-                
-                self.listings.append(book)
-                DispatchQueue.main.async { self.tableView.reloadData() }
+        userRef.child("authoredListings").observeSingleEvent(of: .value) { (snapshot) in
+            if let books = snapshot.value as? [String:[String:String]] {
+                for isbn in books {
+                    for listing in isbn.value {
+                        
+                        
+                        //fetch book data from listings
+                        myDatabase.child("listings").child(isbn.key).child(listing.value).observeSingleEvent(of: .value) { (snapshot) in
+                            
+                            let bookData = snapshot.value as! [String: Any]
+                            
+                            let book = Book()
+                            
+                            book.title = bookData["title"] as? String
+                            book.author = bookData["author"] as? String
+                            book.isbn13 = bookData["isbn13"] as? String
+                            book.isbn10 = bookData["isbn10"] as? String
+                            book.imageURL = bookData["imageURL"] as? String
+                            book.price = bookData["price"] as? Int
+                            book.edition = bookData["edition"] as? String
+                            book.condition = bookData["condition"] as? String
+                            book.department = bookData["department"] as? String
+                            book.course = bookData["course"] as? String
+                            book.listedBy = bookData["listedBy"] as? String
+                            
+                            self.listings.append(book)
+                            
+                            DispatchQueue.main.async { self.tableView.reloadData() }
+                        }
+                    }
+                }
             }
         }
     }
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,7 +78,7 @@ class ListingDetailsViewController: UIViewController {
 }
 
 
-extension ListingDetailsViewController: UITableViewDelegate,
+extension AuthoredListingsViewController: UITableViewDelegate,
 UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -148,4 +156,5 @@ UITableViewDataSource {
         
     }
 }
+
 
