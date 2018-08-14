@@ -21,7 +21,7 @@ class ListingDetailsViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 265
+        tableView.rowHeight = 240
         
         viewBooksByISBN()
         // Do any additional setup after loading the view.
@@ -130,15 +130,10 @@ UITableViewDataSource {
         }
         
         //course
-        if listings[indexPath.row].department != nil && listings[indexPath.row].course != nil {
-            cell.courseLabel.text = "Used in course: \(listings[indexPath.row].department!) \(listings[indexPath.row].course!)"
+        if listings[indexPath.row].department != nil && listings[indexPath.row].course != nil && listings[indexPath.row].department != "- Other -" {
+            cell.courseLabel.text = "\(listings[indexPath.row].department!) \(listings[indexPath.row].course!)"
         }else{
             cell.courseLabel.text = "Unspecified"
-        }
-        //name
-        myDatabase.child("users").child(userID!).child("userData").observeSingleEvent(of: .value) { (snapshot) in
-            let profileData = snapshot.value as! [String: Any]
-            cell.nameLabel.text = "Seller: \(profileData["username"] as! String)"
         }
         
         return cell
