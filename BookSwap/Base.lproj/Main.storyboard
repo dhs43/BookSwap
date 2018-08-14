@@ -836,6 +836,9 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Edition" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1r8-Ld-BHJ">
                                 <rect key="frame" x="16" y="166" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="XhS-Rd-AoJ"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -860,12 +863,18 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Condition" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ILn-dg-3kD" userLabel="Condition">
                                 <rect key="frame" x="16" y="290" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="Jf4-zd-k4q"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0t2-6g-Q7p">
                                 <rect key="frame" x="35" y="414" width="91" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="91" id="iY5-Jj-rLg"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -893,32 +902,29 @@
                         <constraints>
                             <constraint firstItem="k5b-lX-VK4" firstAttribute="top" secondItem="JQl-p9-qsX" secondAttribute="bottom" constant="70" id="2EL-64-vc7"/>
                             <constraint firstItem="N8O-S6-OME" firstAttribute="top" secondItem="zZ7-67-z5a" secondAttribute="bottom" constant="37" id="6Wl-y9-v2Z"/>
-                            <constraint firstItem="ILn-dg-3kD" firstAttribute="top" secondItem="4VK-Yc-geC" secondAttribute="bottom" constant="32" id="8zh-Zd-jHl"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="Ebl-0a-O0k" secondAttribute="trailing" constant="66" id="Abz-2J-uOl"/>
                             <constraint firstItem="4sL-gH-2De" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="C3m-x6-0Uc"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="JQl-p9-qsX" secondAttribute="trailing" constant="16" id="D1W-VK-Obm"/>
-                            <constraint firstItem="0t2-6g-Q7p" firstAttribute="leading" secondItem="N8O-S6-OME" secondAttribute="trailing" constant="8" id="EZI-19-sWc"/>
-                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="top" secondItem="JQl-p9-qsX" secondAttribute="bottom" constant="8" id="FAr-ow-NA1"/>
-                            <constraint firstItem="ILn-dg-3kD" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="FRl-vF-xm2"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="k5b-lX-VK4" secondAttribute="trailing" constant="72.5" id="HRU-Do-Z4Y"/>
                             <constraint firstItem="zZ7-67-z5a" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="J8M-7R-2Vb"/>
                             <constraint firstItem="N8O-S6-OME" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="J8N-k6-now"/>
+                            <constraint firstItem="ILn-dg-3kD" firstAttribute="top" secondItem="4VK-Yc-geC" secondAttribute="bottom" constant="32" id="Ky4-RD-SJf"/>
+                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="M85-cc-6mA"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="bottom" secondItem="Ebl-0a-O0k" secondAttribute="bottom" constant="20" id="N0g-xt-9gj"/>
-                            <constraint firstItem="0t2-6g-Q7p" firstAttribute="top" secondItem="zZ7-67-z5a" secondAttribute="bottom" constant="32" id="NMg-jb-1PD"/>
+                            <constraint firstItem="ILn-dg-3kD" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="ODO-dD-bHu"/>
+                            <constraint firstItem="4VK-Yc-geC" firstAttribute="top" secondItem="1r8-Ld-BHJ" secondAttribute="bottom" constant="32" id="SR1-zQ-m2K"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="4sL-gH-2De" secondAttribute="trailing" constant="16" id="Wbd-9f-uZE"/>
                             <constraint firstItem="4VK-Yc-geC" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="Wsl-mZ-83s"/>
                             <constraint firstItem="4sL-gH-2De" firstAttribute="top" secondItem="pBy-9n-XSO" secondAttribute="top" constant="26" id="XvP-oM-H9H"/>
                             <constraint firstItem="k5b-lX-VK4" firstAttribute="leading" secondItem="4VK-Yc-geC" secondAttribute="trailing" constant="8" id="YkH-im-LQq"/>
-                            <constraint firstItem="zZ7-67-z5a" firstAttribute="top" secondItem="ILn-dg-3kD" secondAttribute="bottom" constant="32" id="ZwZ-CA-vHa"/>
                             <constraint firstItem="Ebl-0a-O0k" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="66" id="c3r-64-58m"/>
-                            <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="0t2-6g-Q7p" secondAttribute="trailing" constant="249" id="d8q-be-du1"/>
+                            <constraint firstItem="zZ7-67-z5a" firstAttribute="top" secondItem="ILn-dg-3kD" secondAttribute="bottom" constant="32" id="d0q-3M-7qR"/>
                             <constraint firstItem="JQl-p9-qsX" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="gzv-BX-eLs"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="zZ7-67-z5a" secondAttribute="trailing" constant="122" id="hAX-uw-Y3C"/>
-                            <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="ILn-dg-3kD" secondAttribute="trailing" constant="249" id="m9r-8A-A7W"/>
-                            <constraint firstItem="4VK-Yc-geC" firstAttribute="top" secondItem="1r8-Ld-BHJ" secondAttribute="bottom" constant="32" id="mQt-we-RqO"/>
+                            <constraint firstItem="0t2-6g-Q7p" firstAttribute="top" secondItem="zZ7-67-z5a" secondAttribute="bottom" constant="32" id="hpL-pg-JZ4"/>
+                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="top" secondItem="JQl-p9-qsX" secondAttribute="bottom" constant="8" id="nfF-Xe-myC"/>
                             <constraint firstItem="JQl-p9-qsX" firstAttribute="top" secondItem="4sL-gH-2De" secondAttribute="bottom" constant="8" id="oeF-ts-hrK"/>
-                            <constraint firstItem="1r8-Ld-BHJ" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="tQC-eX-1je"/>
-                            <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="1r8-Ld-BHJ" secondAttribute="trailing" constant="249" id="ueg-Ml-6wk"/>
+                            <constraint firstItem="0t2-6g-Q7p" firstAttribute="leading" secondItem="N8O-S6-OME" secondAttribute="trailing" constant="8" id="zmq-JG-GhB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pBy-9n-XSO"/>
                     </view>
