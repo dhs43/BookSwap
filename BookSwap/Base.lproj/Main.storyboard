@@ -440,7 +440,7 @@
                         <outlet property="courseTextField" destination="tzQ-dR-Q5C" id="NAZ-dF-1IE"/>
                         <outlet property="departmentTextField" destination="htS-ra-moN" id="bCG-i7-pfg"/>
                         <outlet property="tableView" destination="WSZ-5h-AfB" id="g6h-t5-vow"/>
-                        <segue destination="utm-wi-plH" kind="show" id="Dc4-Ur-HIk"/>
+                        <segue destination="utm-wi-plH" kind="show" identifier="courseToDetails" id="Dc4-Ur-HIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nwI-v1-Rmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -468,7 +468,6 @@
         <!--Listing Details View Controller-->
         <scene sceneID="pih-5b-D3H">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d1f-1M-uah" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="utm-wi-plH" customClass="ListingDetailsViewController" customModule="BookSwap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6dw-dn-yiu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -488,7 +487,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4ji-Yb-Y0m"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="kCc-t8-Gy2" id="wcO-C5-uh7"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1f-1M-uah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2280.8000000000002" y="1163.568215892054"/>
         </scene>
@@ -852,6 +855,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rounds to the nearest integer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMt-Ok-gxj">
+                                <rect key="frame" x="35" y="452" width="144" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.14597034449999999" green="0.33243203160000001" blue="0.10865012559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -873,9 +882,11 @@
                             <constraint firstItem="4VK-Yc-geC" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="Wsl-mZ-83s"/>
                             <constraint firstItem="4sL-gH-2De" firstAttribute="top" secondItem="pBy-9n-XSO" secondAttribute="top" constant="26" id="XvP-oM-H9H"/>
                             <constraint firstItem="k5b-lX-VK4" firstAttribute="leading" secondItem="4VK-Yc-geC" secondAttribute="trailing" constant="8" id="YkH-im-LQq"/>
+                            <constraint firstItem="XMt-Ok-gxj" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="35" id="Zqa-Gu-w2H"/>
                             <constraint firstItem="zZ7-67-z5a" firstAttribute="top" secondItem="ILn-dg-3kD" secondAttribute="bottom" constant="32" id="ZwZ-CA-vHa"/>
                             <constraint firstItem="Ebl-0a-O0k" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="66" id="c3r-64-58m"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="0t2-6g-Q7p" secondAttribute="trailing" constant="249" id="d8q-be-du1"/>
+                            <constraint firstItem="XMt-Ok-gxj" firstAttribute="top" secondItem="0t2-6g-Q7p" secondAttribute="bottom" constant="8" id="dht-8o-muH"/>
                             <constraint firstItem="JQl-p9-qsX" firstAttribute="leading" secondItem="pBy-9n-XSO" secondAttribute="leading" constant="16" id="gzv-BX-eLs"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="zZ7-67-z5a" secondAttribute="trailing" constant="122" id="hAX-uw-Y3C"/>
                             <constraint firstItem="pBy-9n-XSO" firstAttribute="trailing" secondItem="ILn-dg-3kD" secondAttribute="trailing" constant="249" id="m9r-8A-A7W"/>
@@ -931,7 +942,7 @@
         <segue reference="nMX-UK-2t8"/>
         <segue reference="R0C-39-SeZ"/>
         <segue reference="7yF-ge-zU0"/>
-        <segue reference="Eho-wN-XlN"/>
+        <segue reference="Dc4-Ur-HIk"/>
         <segue reference="jC4-dT-OqL"/>
     </inferredMetricsTieBreakers>
 </document>

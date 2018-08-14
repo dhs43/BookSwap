@@ -243,7 +243,12 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         if priceTextField.text?.isEmpty == false {
-            bookToSell.price = Float(priceTextField.text!)!
+            if Int(priceTextField.text!) != nil {
+                bookToSell.price = Int(priceTextField.text!)
+            }else{
+                SVProgressHUD.showError(withStatus: "Please enter an integer for the price.")
+                return
+            }
         }else{
             SVProgressHUD.showError(withStatus: "Please enter an asking price")
             return
@@ -283,7 +288,8 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         if bookToSell.department == "- Other -" {
             myDatabase.child("departments").child("- Other -").child(defaultIsbn).setValue(defaultIsbn)
-        }else{ myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
+        }else{
+            myDatabase.child("departments").child(bookToSell.department!).child(bookToSell.course!).child(defaultIsbn).setValue(defaultIsbn)
         }
         
         //notify user when book is listed

@@ -13,8 +13,7 @@ import Kingfisher
 //for textbook image covers
 let cache = KingfisherManager.shared.cache
 
-var isbn13 = ""
-var isbn10 = ""
+var defaultISBN = ""
 
 class ListingsViewController: UIViewController {
     
@@ -215,12 +214,9 @@ extension ListingsViewController: UITableViewDelegate, UITableViewDataSource {
         selectedBook = listings[indexPath.row]
         
         if selectedBook.isbn13 != nil {
-            isbn13 = selectedBook.isbn13!
-            print("1st \(isbn13)")
-        }
-        if selectedBook.isbn10 != nil {
-            isbn10 = selectedBook.isbn10!
-            print("2nd \(isbn10)")
+            defaultISBN = selectedBook.isbn13!
+        }else if selectedBook.isbn10 != nil {
+            defaultISBN = selectedBook.isbn10!
         }
         
         performSegue(withIdentifier: "listingDetails", sender: self)

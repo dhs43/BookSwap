@@ -18,7 +18,7 @@ class Book: NSObject{
     var department: String?
     var course: String?
     var condition: String?
-    var price: Float?
+    var price: Int?
     var imageURL: String?
     var listedBy: String?
     

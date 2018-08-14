@@ -265,6 +265,19 @@ extension SearchCoursesViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectedBook = listings[indexPath.row]
+        
+        if selectedBook.isbn13 != nil {
+            defaultISBN = selectedBook.isbn13!
+        }else if selectedBook.isbn10 != nil {
+            defaultISBN = selectedBook.isbn10!
+        }
+        
+        performSegue(withIdentifier: "courseToDetails", sender: self)
+    }
 }
 
 
