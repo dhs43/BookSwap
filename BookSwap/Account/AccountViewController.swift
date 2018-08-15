@@ -30,7 +30,7 @@ class AccountViewController: UIViewController {
             let profileData = snapshot.value as! [String: Any]
             username = profileData["username"] as? String
             
-            self.usernameTextLabel.text = username
+            self.usernameTextLabel.text = ("Welcome, \(username!)!")
             self.usernameTextLabel.isHidden = false
         }
     }

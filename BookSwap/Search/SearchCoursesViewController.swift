@@ -66,50 +66,101 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
         isbnArray.removeAll()
         listings.removeAll()
         
-        
-        //get isbns associated with course
-        myDatabase.child("departments").child("\(department)").child("\(course)").observeSingleEvent(of: .value) { (snapshot) in
-            if let data = snapshot.value as? NSDictionary {
-                for isbn in data.keyEnumerator() {
-                    if isbn as? String != "placeholder"{
-                        isbnArray.append("\(isbn)")
+        if courseTextField.text == "All" {
+            //get isbns associated with course
+            myDatabase.child("departments").child("\(department)").observeSingleEvent(of: .value) { (snapshot) in
+                if let data = snapshot.value as? NSDictionary {
+                    for isbn in data.keyEnumerator() {
+                        if isbn as? String != "placeholder"{
+                            isbnArray.append("\(isbn)")
+                        }
+                    }
+                }
+                
+                //show each book associated with isbns
+                for isbn in isbnArray {
+                    
+                    let listingsRef = myDatabase.child("listings").child(isbn)
+                    
+                    var bookCounter = 0
+                    
+                    listingsRef.observeSingleEvent(of: .value) { (snapshot) in
+                        for child in snapshot.children {
+                            
+                            bookCounter += 1
+                            
+                            //to get only the first book for each isbn
+                            //apparently snapshot.children[0] doesn't work
+                            if bookCounter == 1 {
+                                
+                                let data = child as! DataSnapshot //each listing
+                                let bookData = data.value as! [String: Any]
+                                
+                                let book = Book()
+                                book.title = bookData["title"] as? String
+                                book.author = bookData["author"] as? String
+                                book.isbn13 = bookData["isbn13"] as? String
+                                book.isbn10 = bookData["isbn10"] as? String
+                                book.imageURL = bookData["imageURL"] as? String
+                                book.edition = bookData["edition"] as? String
+                                book.condition = bookData["condition"] as? String
+                                book.department = bookData["department"] as? String
+                                book.course = bookData["course"] as? String
+                                book.listedBy = bookData["listedBy"] as? String
+                                
+                                self.listings.append(book)
+                                DispatchQueue.main.async { self.tableView.reloadData() }
+                            }
+                        }
                     }
                 }
             }
+        }else{
             
-            //show each book associated with isbns
-            for isbn in isbnArray {
+            //get isbns associated with course
+            myDatabase.child("departments").child("\(department)").child("\(course)").observeSingleEvent(of: .value) { (snapshot) in
+                if let data = snapshot.value as? NSDictionary {
+                    for isbn in data.keyEnumerator() {
+                        if isbn as? String != "placeholder"{
+                            isbnArray.append("\(isbn)")
+                        }
+                    }
+                }
                 
-                let listingsRef = myDatabase.child("listings").child(isbn)
-                
-                var bookCounter = 0
-            
-                listingsRef.observeSingleEvent(of: .value) { (snapshot) in
-                    for child in snapshot.children {
-                        
-                        bookCounter += 1
-                        
-                        //to get only the first book for each isbn
-                        //apparently snapshot.children[0] doesn't work
-                        if bookCounter == 1 {
+                //show each book associated with isbns
+                for isbn in isbnArray {
+                    
+                    let listingsRef = myDatabase.child("listings").child(isbn)
+                    
+                    var bookCounter = 0
+                    
+                    listingsRef.observeSingleEvent(of: .value) { (snapshot) in
+                        for child in snapshot.children {
                             
-                            let data = child as! DataSnapshot //each listing
-                            let bookData = data.value as! [String: Any]
+                            bookCounter += 1
                             
-                            let book = Book()
-                            book.title = bookData["title"] as? String
-                            book.author = bookData["author"] as? String
-                            book.isbn13 = bookData["isbn13"] as? String
-                            book.isbn10 = bookData["isbn10"] as? String
-                            book.imageURL = bookData["imageURL"] as? String
-                            book.edition = bookData["edition"] as? String
-                            book.condition = bookData["condition"] as? String
-                            book.department = bookData["department"] as? String
-                            book.course = bookData["course"] as? String
-                            book.listedBy = bookData["listedBy"] as? String
-                            
-                            self.listings.append(book)
-                            DispatchQueue.main.async { self.tableView.reloadData() }
+                            //to get only the first book for each isbn
+                            //apparently snapshot.children[0] doesn't work
+                            if bookCounter == 1 {
+                                
+                                let data = child as! DataSnapshot //each listing
+                                let bookData = data.value as! [String: Any]
+                                
+                                let book = Book()
+                                book.title = bookData["title"] as? String
+                                book.author = bookData["author"] as? String
+                                book.isbn13 = bookData["isbn13"] as? String
+                                book.isbn10 = bookData["isbn10"] as? String
+                                book.imageURL = bookData["imageURL"] as? String
+                                book.edition = bookData["edition"] as? String
+                                book.condition = bookData["condition"] as? String
+                                book.department = bookData["department"] as? String
+                                book.course = bookData["course"] as? String
+                                book.listedBy = bookData["listedBy"] as? String
+                                
+                                self.listings.append(book)
+                                DispatchQueue.main.async { self.tableView.reloadData() }
+                            }
                         }
                     }
                 }
@@ -163,38 +214,49 @@ class SearchCoursesViewController: UIViewController, UIPickerViewDelegate, UIPic
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == departmentPicker {
             selectedDepartment = departments[row]
-            departmentTextField.text = selectedDepartment
             
-            myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
+            if selectedDepartment != "- Other -" {
+                courseTextField.text = ""
+            }else{
+                selectedCourse = "All"
+            }
+            
+            if selectedDepartment != "" {
                 
-                if self.selectedDepartment != "- Other -" {
+                departmentTextField.text = selectedDepartment
+                
+                myDatabase.child("departments").child("\(selectedDepartment ?? "AHSS")").observeSingleEvent(of: .value) { (snapshot) in
                     
-                    //fills in coursePickerView with selected department's courses
-                    self.courses.removeAll()
-                    self.courses.append("")
-                    self.courses.append("N/A")
-                    if let myData = snapshot.value as? NSDictionary {
+                    if self.selectedDepartment != "- Other -" {
                         
-                        var stringList: [String] = [""]
-                        var intList: [Int] = [0]
-                        stringList.removeAll()
-                        intList.removeAll()
-                        
-                        for name in myData.keyEnumerator() {
-                            stringList.append("\(name)")
+                        //fills in coursePickerView with selected department's courses
+                        self.courses.removeAll()
+                        self.courses.append("")
+                        self.courses.append("N/A")
+                        if let myData = snapshot.value as? NSDictionary {
+                            
+                            var stringList: [String] = [""]
+                            var intList: [Int] = [0]
+                            stringList.removeAll()
+                            intList.removeAll()
+                            
+                            for name in myData.keyEnumerator() {
+                                stringList.append("\(name)")
+                            }
+                            
+                            for string in stringList {
+                                intList.append(Int(string)!)
+                            }
+                            stringList = stringList.sorted()
+                            for course in stringList {
+                                self.courses.append("\(course)")
+                            }
                         }
-                        
-                        for string in stringList {
-                            intList.append(Int(string)!)
-                        }
-                        stringList = stringList.sorted()
-                        for course in stringList {
-                            self.courses.append("\(course)")
-                        }
+                    }else{
+                        self.courses.removeAll()
+                        self.courseTextField.text = "All"
+                        self.courses.append("All")
                     }
-                }else{
-                    self.courses.removeAll()
-                    self.courses.append("All")
                 }
             }
             

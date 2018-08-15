@@ -10,9 +10,12 @@ import UIKit
 import Firebase
 import Kingfisher
 
+var selectedListingKey = ""
+
 class AuthoredListingsViewController: UIViewController {
     
     var listings = [Book]()
+    var listingKeys = [String]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -62,6 +65,7 @@ class AuthoredListingsViewController: UIViewController {
                             book.listedBy = bookData["listedBy"] as? String
                             
                             self.listings.append(book)
+                            self.listingKeys.append(listing.key)
                             
                             DispatchQueue.main.async { self.tableView.reloadData() }
                         }
@@ -148,7 +152,14 @@ UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedBook = listings[indexPath.row]
+        selectedListingKey = listingKeys[indexPath.row]
         
+        print("----")
+        print(listingKeys)
+        print(listingKeys[indexPath.row])
+        
+        performSegue(withIdentifier: "editListing", sender: self)
     }
 }
 
