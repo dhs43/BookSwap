@@ -79,6 +79,8 @@ class LoginViewController: UIViewController {
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 
                 passwordResetAlert.addAction(okAction)
+                
+                SVProgressHUD.showSuccess(withStatus: "A password-reset email has been sent to \(self.emailTextField.text!)")
             }
         }
     }
