@@ -1097,7 +1097,6 @@
         <image name="userImage" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mnG-Ge-yDh"/>
         <segue reference="nMX-UK-2t8"/>
         <segue reference="R0C-39-SeZ"/>
         <segue reference="7yF-ge-zU0"/>

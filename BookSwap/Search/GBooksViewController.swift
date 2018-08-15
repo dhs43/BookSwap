@@ -24,6 +24,8 @@ class GBooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addKeyboardDoneButton()
+        
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -32,6 +34,20 @@ class GBooksViewController: UIViewController {
             searchBar.text = myQuery
             self.searchGoogleBooks(query: myQuery)
         }
+    }
+    
+    //create toolbar w/ done button
+    func addKeyboardDoneButton() {
+        let keyboardToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        keyboardToolbar.barStyle = .default
+        keyboardToolbar.items = [
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(GBooksViewController.dismissKeyboard))]
+        keyboardToolbar.sizeToFit()
+        searchBar.inputAccessoryView = keyboardToolbar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     //search Google Books for a keyword

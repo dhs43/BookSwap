@@ -27,6 +27,8 @@ class ListingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addKeyboardDoneButton()
+        
         tableView.isHidden = true
         
         searchBar.delegate = self
@@ -39,6 +41,19 @@ class ListingsViewController: UIViewController {
         }
     }
     
+    //create toolbar w/ done button
+    func addKeyboardDoneButton() {
+        let keyboardToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        keyboardToolbar.barStyle = .default
+        keyboardToolbar.items = [
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ListingsViewController.dismissKeyboard))]
+        keyboardToolbar.sizeToFit()
+        searchBar.inputAccessoryView = keyboardToolbar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     //search Google Books for a keyword
     func searchForSale(query: String, startingIndex: Int) {

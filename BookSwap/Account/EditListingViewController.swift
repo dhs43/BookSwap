@@ -52,7 +52,7 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let keyboardToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         keyboardToolbar.barStyle = .default
         keyboardToolbar.items = [
-            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ManualEntryViewController.dismissKeyboard))]
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(EditListingViewController.dismissKeyboard))]
         keyboardToolbar.sizeToFit()
         titleTextField.inputAccessoryView = keyboardToolbar
         authorTextField.inputAccessoryView = keyboardToolbar
@@ -60,6 +60,9 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         priceTextField.inputAccessoryView = keyboardToolbar
     }
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -76,7 +79,7 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         toolBar.sizeToFit()
         
         //add done button
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ManualEntryViewController.dismissKeyboard))
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(EditListingViewController.dismissKeyboard))
         
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -84,10 +87,6 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         textField.inputAccessoryView = toolBar
     }
     
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

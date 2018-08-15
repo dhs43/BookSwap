@@ -22,9 +22,24 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        addKeyboardDoneButton()
     }
 
+    //create toolbar w/ done button
+    func addKeyboardDoneButton() {
+        let keyboardToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        keyboardToolbar.barStyle = .default
+        keyboardToolbar.items = [
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(LoginViewController.dismissKeyboard))]
+        keyboardToolbar.sizeToFit()
+        emailTextField.inputAccessoryView = keyboardToolbar
+        passwordTextField.inputAccessoryView = keyboardToolbar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
