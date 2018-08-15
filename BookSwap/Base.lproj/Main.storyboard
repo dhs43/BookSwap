@@ -457,7 +457,7 @@
                                     <outlet property="delegate" destination="QHB-Mz-6Ch" id="7QH-6G-b6W"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UId-zn-nWc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UId-zn-nWc">
                                 <rect key="frame" x="16" y="298" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -524,6 +524,7 @@
                             <constraint firstItem="5gs-ns-Ge6" firstAttribute="bottom" secondItem="Xjp-yl-DNs" secondAttribute="bottom" constant="20" id="oiV-bL-pia"/>
                             <constraint firstItem="Mco-0k-IcT" firstAttribute="top" secondItem="l92-Go-HHy" secondAttribute="bottom" constant="8" id="s3l-07-cpW"/>
                             <constraint firstItem="qzu-eu-aVP" firstAttribute="leading" secondItem="Xjp-yl-DNs" secondAttribute="trailing" constant="13" id="syz-JZ-06V"/>
+                            <constraint firstItem="UId-zn-nWc" firstAttribute="top" secondItem="DsM-Wm-4r0" secondAttribute="bottom" constant="48" id="wlv-yB-wlo"/>
                             <constraint firstItem="UId-zn-nWc" firstAttribute="leading" secondItem="5gs-ns-Ge6" secondAttribute="leading" constant="16" id="xAl-AJ-AKU"/>
                             <constraint firstItem="GfH-Jx-ief" firstAttribute="leading" secondItem="5gs-ns-Ge6" secondAttribute="leading" constant="16" id="yig-ZI-2m0"/>
                         </constraints>
@@ -1068,7 +1069,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ng5-pt-P4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4878" y="1164"/>
+            <point key="canvasLocation" x="4877.6000000000004" y="1163.568215892054"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6pS-Qd-5WU">

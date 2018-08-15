@@ -45,6 +45,17 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         addKeyboardDoneButton()
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
         
+        //Listen for keyboard events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+    }
+    
+    deinit {
+        //stop listening for keyboard events
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
     //create toolbar w/ done button
@@ -62,6 +73,34 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        var activeTextField = titleTextField
+        
+        if authorTextField.isEditing { activeTextField = authorTextField }
+        else if editionTextField.isEditing { activeTextField = editionTextField }
+        else if conditionTextField.isEditing { activeTextField = conditionTextField }
+        else if priceTextField.isEditing { activeTextField = priceTextField }
+        
+        //if the keyboard would be above the textfield (plus 10pts of padding)
+        if activeTextField!.frame.maxY + 10 > UIScreen.main.bounds.height - keyboardRect.height {
+            if notification.name == Notification.Name.UIKeyboardWillShow || notification.name == Notification.Name.UIKeyboardWillChangeFrame {
+                
+                //move origin up by the amount the keyboard would cover the textfield
+                view.frame.origin.y = -(activeTextField!.frame.maxY - keyboardRect.height)
+            }else{
+                view.frame.origin.y = 0
+            }
+            //if user selects another textfield and view was previously moved, reset to 0
+        }else if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
     }
     
     override func didReceiveMemoryWarning() {
