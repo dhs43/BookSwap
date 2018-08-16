@@ -16,7 +16,6 @@ class ListingDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var courseLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isbn13Label: UILabel!
     @IBOutlet weak var isbn10Label: UILabel!
     

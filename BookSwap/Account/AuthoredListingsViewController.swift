@@ -155,10 +155,6 @@ UITableViewDataSource {
         selectedBook = listings[indexPath.row]
         selectedListingKey = listingKeys[indexPath.row]
         
-        print("----")
-        print(listingKeys)
-        print(listingKeys[indexPath.row])
-        
         performSegue(withIdentifier: "editListing", sender: self)
     }
 }

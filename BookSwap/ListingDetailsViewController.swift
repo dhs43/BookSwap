@@ -141,6 +141,10 @@ UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        selectedBook = listings[indexPath.row]
+        
+        performSegue(withIdentifier: "goToChat", sender: self)
+        
     }
 }
 
