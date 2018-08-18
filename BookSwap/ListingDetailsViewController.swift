@@ -21,7 +21,7 @@ class ListingDetailsViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 240
+        tableView.rowHeight = 140
         
         viewBooksByISBN()
         // Do any additional setup after loading the view.
@@ -97,18 +97,6 @@ UITableViewDataSource {
         }else{
             cell.authorLabel.text = "Author Unknown"
         }
-        //isbn 13
-        if listings[indexPath.row].isbn13 != nil {
-            cell.isbn13Label.text = "ISBN 13: \(listings[indexPath.row].isbn13!)"
-        }else{
-            cell.isbn13Label.text = "ISBN Unknown"
-        }
-        //isbn 10
-        if listings[indexPath.row].isbn10 != nil {
-            cell.isbn10Label.text = "ISBN 10: \(listings[indexPath.row].isbn10!)"
-        }else{
-            cell.isbn10Label.text = "ISBN Unknown"
-        }
         
         //image
         if listings[indexPath.row].imageURL != nil && listings[indexPath.row].imageURL != "none" {
@@ -122,11 +110,6 @@ UITableViewDataSource {
         //price
         if listings[indexPath.row].price != nil {
             cell.priceLabel.text = "$\(listings[indexPath.row].price!)"
-        }
-        
-        //condition
-        if listings[indexPath.row].condition != nil {
-            cell.conditionLabel.text = "Condition: \(listings[indexPath.row].condition!)"
         }
         
         //course
@@ -143,7 +126,7 @@ UITableViewDataSource {
         
         selectedBook = listings[indexPath.row]
         
-        performSegue(withIdentifier: "goToChat", sender: self)
+        performSegue(withIdentifier: "fullDetails", sender: self)
         
     }
 }

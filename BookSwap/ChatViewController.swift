@@ -7,24 +7,162 @@
 //
 
 import UIKit
+import Firebase
 import Kingfisher
+import SVProgressHUD
 
-class ChatViewController: UIViewController {
+class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
+    //reference to inputTextField
+    lazy var inputTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter message..."
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
+        return textField
+    }()
+    
+    let cellId = "cellId"
     let bookForSale: Book = selectedBook
+    var chatId = ""
+    var chats = [String]()
     
-    @IBOutlet weak var bookImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //clearing global variable
+        selectedBook = Book()
+        
+        //check if users have previous chat in database
+        myDatabase.child("messages").observeSingleEvent(of: .value) { (snapshot) in
+            
+            for child in snapshot.children {
+                let data = child as! DataSnapshot
+                
+                if data.key == "\(self.bookForSale.listedBy!)-\(userID!)" || data.key == "\(userID!)-\(self.bookForSale.listedBy!)" {
+                    self.chatId = data.key as String
+                    break
+                }
+            }
+            //if they don't, create a node for one
+            if self.chatId == "" {
+                myDatabase.child("messages").child("\(userID!)-\(self.bookForSale.listedBy!)").childByAutoId().setValue(["message": "placeholder", "sender": "placeholder", "date": "placeholder"])
+                self.chatId = "\(userID!)-\(self.bookForSale.listedBy!)"
+                
+                //also create reference to chat under each user's node
+                myDatabase.child("users").child(userID!).child("userChats").child(self.chatId).setValue(self.chatId)
+                myDatabase.child("users").child(self.bookForSale.listedBy!).child("userChats").child(self.chatId).setValue(self.chatId)
+            }
+            self.getHistory()
+        }
+        
+        collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        
+        setupInputComponents()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 80)
+    }
+    
+    func setupInputComponents() {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = UIColor.white
+        
+        view.addSubview(containerView)
+        
+        //bottom bar anchors
+        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        containerView.addSubview(sendButton)
+        //send button anchors
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+      
+        containerView.addSubview(inputTextField)
+        //inputTextField anchors
+        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        let seperatorLineView = UIView()
+        seperatorLineView.backgroundColor = UIColor.lightGray
+        seperatorLineView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(seperatorLineView)
+        //seperator line anchors
+        seperatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        seperatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        seperatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        seperatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
+    
+    @objc func handleSend() {
+        
+        //add new message data to database under childByAutoId
+        var history = myDatabase
+        history = myDatabase.child("messages").child(chatId)
+        let contents = ["sender":"\(userID!)", "message": inputTextField.text!, "date": "\(Date())"]
+        inputTextField.text = ""
+        history.childByAutoId().setValue(contents)
+    }
+    
+    func getHistory() {
+        myDatabase.child("messages").child(chatId).observe(.value) { (snapshot) in
+            for child in snapshot.children {
+                let data = child as! DataSnapshot
+                print("-----")
+                print(data)
+                let temp = data.value as! [String:String]
+                print(temp["message"]!)
+            }
+        }
+    }
 
-        let url = URL(string: bookForSale.imageURL!)
-        bookImage.kf.setImage(with: url)
-        titleLabel.text = bookForSale.title!
-        authorLabel.text = "Author: \(bookForSale.author!)"
-        priceLabel.text = "$ \(bookForSale.price!)"
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        handleSend()
+        return true
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

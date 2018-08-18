@@ -42,6 +42,8 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         conditionTextField.text = selectedBook.condition
         priceTextField.text = "\(selectedBook.price!)"
         
+        selectedBook = Book()
+        
         addKeyboardDoneButton()
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
         
