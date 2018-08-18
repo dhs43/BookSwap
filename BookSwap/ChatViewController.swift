@@ -22,10 +22,16 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         return textField
     }()
     
+    class chatObject: NSObject {
+        var sender: String?
+        var message: String?
+        var date: String?
+    }
+    
     let cellId = "cellId"
     let bookForSale: Book = selectedBook
     var chatId = ""
-    var chats = [String]()
+    var chats = [chatObject]()
     
     
     override func viewDidLoad() {
@@ -34,60 +40,46 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         //clearing global variable
         selectedBook = Book()
         
-        //check if users have previous chat in database
-        myDatabase.child("messages").observeSingleEvent(of: .value) { (snapshot) in
+        if selectedChat != "" {
+            chatId = selectedChat
+            selectedChat = ""
+            getHistory()
+        }else{
             
-            for child in snapshot.children {
-                let data = child as! DataSnapshot
+            //check if users have previous chat in database
+            myDatabase.child("messages").observeSingleEvent(of: .value) { (snapshot) in
                 
-                if data.key == "\(self.bookForSale.listedBy!)-\(userID!)" || data.key == "\(userID!)-\(self.bookForSale.listedBy!)" {
-                    self.chatId = data.key as String
-                    break
+                for child in snapshot.children {
+                    let data = child as! DataSnapshot
+                    
+                    if data.key == "\(self.bookForSale.listedBy!)-\(userID!)" || data.key == "\(userID!)-\(self.bookForSale.listedBy!)" {
+                        self.chatId = data.key as String
+                        break
+                    }
                 }
+                //if they don't, create a node for one
+                if self.chatId == "" {
+                    myDatabase.child("messages").child("\(userID!)-\(self.bookForSale.listedBy!)").childByAutoId().setValue(["message": "specificBookswapPlaceholder", "sender": "placeholder", "date": "placeholder"])
+                    self.chatId = "\(userID!)-\(self.bookForSale.listedBy!)"
+                    
+                    //also create reference to chat under each user's node
+                    myDatabase.child("users").child(userID!).child("userChats").child(self.chatId).setValue(self.chatId)
+                    myDatabase.child("users").child(self.bookForSale.listedBy!).child("userChats").child(self.chatId).setValue(self.chatId)
+                }
+                self.getHistory()
             }
-            //if they don't, create a node for one
-            if self.chatId == "" {
-                myDatabase.child("messages").child("\(userID!)-\(self.bookForSale.listedBy!)").childByAutoId().setValue(["message": "placeholder", "sender": "placeholder", "date": "placeholder"])
-                self.chatId = "\(userID!)-\(self.bookForSale.listedBy!)"
-                
-                //also create reference to chat under each user's node
-                myDatabase.child("users").child(userID!).child("userChats").child(self.chatId).setValue(self.chatId)
-                myDatabase.child("users").child(self.bookForSale.listedBy!).child("userChats").child(self.chatId).setValue(self.chatId)
-            }
-            self.getHistory()
         }
         
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
-        
-        setupInputComponents()
+        collectionView?.keyboardDismissMode = .interactive
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 80)
-    }
-    
-    func setupInputComponents() {
+    lazy var inputContainerView: UIView = {
+
         let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
         containerView.backgroundColor = UIColor.white
-        
-        view.addSubview(containerView)
-        
-        //bottom bar anchors
-        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("Send", for: .normal)
@@ -99,7 +91,7 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-      
+        
         containerView.addSubview(inputTextField)
         //inputTextField anchors
         inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
@@ -116,9 +108,94 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         seperatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         seperatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         seperatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        return containerView
+    }()
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return inputContainerView
+        }
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func handleKeyboardWillShow(notification: NSNotification) {
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        //move view up by keyboard height
+        containerViewBottomAnchor?.constant = -keyboardRect.height
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func handleKeyboardWillHide(notification: NSNotification) {
+        containerViewBottomAnchor?.constant = 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return chats.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        
+        let chat = chats[indexPath.row]
+        cell.textView.text = chat.message
+        
+        //get estimated cell width
+        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: chat.message!).width + 20
+        
+        setupCell(cell: cell, chat: chat)
+        return cell
+    }
+    
+    private func setupCell(cell: ChatMessageCell, chat: chatObject) {
+        if chat.sender == userID {
+            cell.bubbleView.backgroundColor = chatGreen
+            cell.bubbleViewLeftAnchor?.isActive = false
+            cell.bubbleViewRightAnchor?.isActive = true
+        }else{
+            cell.bubbleView.backgroundColor = chatTan
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var height:CGFloat = 80
+        
+        //get estimated height
+        if let text = chats[indexPath.item].message {
+            height = estimatedFrameForText(text: text).height + 20
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
+    }
+    
+    private func estimatedFrameForText(text: String) -> CGRect {
+        
+        let size = CGSize(width: 200, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil)
+    }
+    
+    var containerViewBottomAnchor: NSLayoutConstraint?
+    
     @objc func handleSend() {
+        
+        if inputTextField.text == "" { return }
         
         //add new message data to database under childByAutoId
         var history = myDatabase
@@ -130,19 +207,38 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
     
     func getHistory() {
         myDatabase.child("messages").child(chatId).observe(.value) { (snapshot) in
+            self.chats.removeAll()
             for child in snapshot.children {
-                let data = child as! DataSnapshot
-                print("-----")
-                print(data)
-                let temp = data.value as! [String:String]
-                print(temp["message"]!)
+                let text = child as! DataSnapshot
+                let data = text.value as! [String:String]
+                let thisChat = chatObject()
+                thisChat.message = data["message"]!
+                thisChat.sender = data["sender"]!
+                thisChat.date = data["date"]!
+                //do not show initial database placeholder value
+                if thisChat.message != "specificBookswapPlaceholder" {
+                    self.chats.append(thisChat)
+                    self.collectionView?.reloadData()
+                }
             }
+            self.scrollToBottom()
         }
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
         return true
+    }
+    
+    private func scrollToBottom() {
+        
+        if chats.isEmpty == true { return }
+        
+        let lastSectionIndex = (collectionView?.numberOfSections)! - 1
+        let lastItemIndex = (collectionView?.numberOfItems(inSection: lastSectionIndex))! - 1
+        let indexPath = NSIndexPath(item: lastItemIndex, section: lastSectionIndex)
+        
+        collectionView!.scrollToItem(at: indexPath as IndexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
     }
 }
 

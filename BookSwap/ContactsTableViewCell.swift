@@ -1,21 +1,17 @@
 //
-//  ListingDetailsTableViewCell.swift
+//  ContactsTableViewCell.swift
 //  BookSwap
 //
-//  Created by David Shapiro on 8/13/18.
+//  Created by David Shapiro on 8/18/18.
 //  Copyright © 2018 David Shapiro. All rights reserved.
 //
 
 import UIKit
 
-class ListingDetailsTableViewCell: UITableViewCell {
+class ContactsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var bookImageView: UIImageView!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var courseLabel: UILabel!
-    
+    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var previewLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

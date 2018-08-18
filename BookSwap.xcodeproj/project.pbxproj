@@ -11,6 +11,9 @@
 		6310453120FD90BE00B97C0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6310453020FD90BE00B97C0C /* ViewController.swift */; };
 		6310453420FD90BE00B97C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453220FD90BE00B97C0C /* Main.storyboard */; };
 		6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */; };
+		6333DFCC2128BF01006A8BCB /* UsersChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */; };
+		6333DFD52128D523006A8BCB /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333DFD32128D523006A8BCB /* ContactsTableViewCell.swift */; };
+		6333DFD62128D523006A8BCB /* ContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6333DFD42128D523006A8BCB /* ContactsTableViewCell.xib */; };
 		6339B8EE2123544B002DDEA8 /* AuthoredListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */; };
 		633C2024211CB67900BE481A /* SearchCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C2023211CB67900BE481A /* SearchCoursesViewController.swift */; };
 		63860E60210EA5B500DB4992 /* BookItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */; };
@@ -44,6 +47,9 @@
 		6310453320FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersChatsViewController.swift; path = BookSwap/UsersChatsViewController.swift; sourceTree = SOURCE_ROOT; };
+		6333DFD32128D523006A8BCB /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		6333DFD42128D523006A8BCB /* ContactsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsTableViewCell.xib; sourceTree = "<group>"; };
 		6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthoredListingsViewController.swift; sourceTree = "<group>"; };
 		633C2023211CB67900BE481A /* SearchCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoursesViewController.swift; sourceTree = "<group>"; };
 		63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,10 +128,13 @@
 				63A27ACB2125372600750A49 /* ChatViewController.swift */,
 				63D0D9D92128054700CE3615 /* ChatMessageCell.swift */,
 				63D0D9D52127A66D00CE3615 /* FullDetailsViewController.swift */,
+				6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */,
 				633D66FD211F6BEF00629925 /* Search */,
 				63296CC42101D3C5008DA161 /* Account */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
 				6310453720FD90BE00B97C0C /* LaunchScreen.storyboard */,
+				6333DFD32128D523006A8BCB /* ContactsTableViewCell.swift */,
+				6333DFD42128D523006A8BCB /* ContactsTableViewCell.xib */,
 				63B9CAAA2122A9A700C056AB /* ListingDetailsTableViewCell.swift */,
 				63B9CAAB2122A9A700C056AB /* ListingDetailsTableViewCell.xib */,
 				63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */,
@@ -231,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6310453920FD90BE00B97C0C /* LaunchScreen.storyboard in Resources */,
+				6333DFD62128D523006A8BCB /* ContactsTableViewCell.xib in Resources */,
 				63B9CAAD2122A9A700C056AB /* ListingDetailsTableViewCell.xib in Resources */,
 				63B5A73220FEFCD3001310D7 /* Images.xcassets in Resources */,
 				63FF7E9720FD91C300B8FDAF /* GoogleService-Info.plist in Resources */,
@@ -311,11 +321,13 @@
 				63A27ACC2125372600750A49 /* ChatViewController.swift in Sources */,
 				6310453120FD90BE00B97C0C /* ViewController.swift in Sources */,
 				63860E60210EA5B500DB4992 /* BookItemTableViewCell.swift in Sources */,
+				6333DFD52128D523006A8BCB /* ContactsTableViewCell.swift in Sources */,
 				6310452F20FD90BE00B97C0C /* AppDelegate.swift in Sources */,
 				63B9CAAF2122A9D300C056AB /* ListingDetailsViewController.swift in Sources */,
 				63E10980210FE9D3001D858A /* ManualEntryViewController.swift in Sources */,
 				63ACB4BB211273C3008B9F8A /* ListingsViewController.swift in Sources */,
 				63AE7336211BBFBB004E3D3D /* ISBNSearchViewController.swift in Sources */,
+				6333DFCC2128BF01006A8BCB /* UsersChatsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
