@@ -23,6 +23,9 @@ class UsersChatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //reset badge app icon
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 70
@@ -34,6 +37,11 @@ class UsersChatsViewController: UIViewController {
             }
             DispatchQueue.main.async { self.tableView.reloadData() }
         }
+        
+        //set new messages to false
+        myDatabase.child("users").child(userID!).child("hasNewMessages").setValue(false)
+        //reset badge app icon
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func getOtherUsers(data: String) {

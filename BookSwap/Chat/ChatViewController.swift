@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Kingfisher
 import SVProgressHUD
+import UserNotifications
 
 class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -79,8 +80,8 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
                     myDatabase.child("users").child(userID!).child("userChats").child(self.chatId).setValue(self.chatId)
                     myDatabase.child("users").child(self.bookForSale.listedBy!).child("userChats").child(self.chatId).setValue(self.chatId)
                 }
-                self.getHistory()
             }
+            self.getHistory()
         }
         
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
@@ -208,6 +209,9 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
     
     @objc func handleSend() {
         
+        //set otherusers new messages to true
+        myDatabase.child("users").child(chattingWith).child("hasNewMessages").setValue(true)
+        
         if inputTextField.text == "" { return }
         
         //add new message data to database under childByAutoId
@@ -235,11 +239,18 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
                 }
             }
             self.scrollToBottom()
+            
+            //set new messages to false
+            myDatabase.child("users").child(userID!).child("hasNewMessages").setValue(false)
+            //reset badge app icon
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
+        
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
+        
         return true
     }
     

@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import SVProgressHUD
+import UserNotifications
 
 let myDatabase = Database.database().reference()
 var userID = Auth.auth().currentUser?.uid
@@ -43,13 +44,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setBorderWidth(1)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
         
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound]
-        let notificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
-        application.isRegisteredForRemoteNotifications
-        application.registerUserNotificationSettings(notificationSettings)
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (didAllow, error) in
+            
+        }
         
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         
         return true
+    }
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        myDatabase.child("users").child(userID!).child("hasNewMessages").observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.value as! Bool == true {
+                let content = UNMutableNotificationContent()
+                content.title = "You have unread messages"
+                content.badge = 1
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let request = UNNotificationRequest(identifier: "testing", content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -72,11 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        print("MessageID : \(userInfo["gcm_message_id"]!)")
-        print()
     }
 }
 
