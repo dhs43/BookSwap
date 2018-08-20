@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 var selectedChat = ""
+var otherUser = ""
 
 class UsersChatsViewController: UIViewController {
 
@@ -31,7 +32,6 @@ class UsersChatsViewController: UIViewController {
                 let data = child as! DataSnapshot
                 self.getOtherUsers(data: data.key)
             }
-            print(self.otherUsers)
             DispatchQueue.main.async { self.tableView.reloadData() }
         }
     }
@@ -85,8 +85,6 @@ UITableViewDataSource {
         
         myDatabase.child("users").child(otherUsers[indexPath.row]).child("userData").observeSingleEvent(of: .value, with: { (snapshot) in
             
-            print(snapshot)
-            
             let profileData = snapshot.value as! [String: Any]
             cell.contactLabel.text = profileData["username"] as? String
         })
@@ -110,6 +108,7 @@ UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedChat = chatIds[indexPath.row]
+        otherUser = otherUsers[indexPath.row]
         performSegue(withIdentifier: "selectedChat", sender: self)
         
     }

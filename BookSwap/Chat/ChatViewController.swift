@@ -29,9 +29,10 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
     }
     
     let cellId = "cellId"
-    let bookForSale: Book = selectedBook
+    var bookForSale = selectedBook
     var chatId = ""
     var chats = [chatObject]()
+    var chattingWith = ""
     
     
     override func viewDidLoad() {
@@ -39,6 +40,18 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         
         //clearing global variable
         selectedBook = Book()
+        
+        if otherUser == "" {
+            chattingWith = bookForSale.listedBy!
+        }else{
+            chattingWith = otherUser
+        }
+        
+        myDatabase.child("users").child(chattingWith).child("userData").observeSingleEvent(of: .value) { (snapshot) in
+            let userData = snapshot.value as! [String: Any]
+            self.title = userData["username"] as? String
+            otherUser = ""
+        }
         
         if selectedChat != "" {
             chatId = selectedChat

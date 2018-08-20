@@ -11,7 +11,7 @@ import SVProgressHUD
 
 class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    let bookToSell = Book()
+    var bookToSell = Book()
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var authorTextField: UITextField!
@@ -36,13 +36,14 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleTextField.text = selectedBook.title
-        authorTextField.text = selectedBook.author
-        editionTextField.text = selectedBook.edition
-        conditionTextField.text = selectedBook.condition
-        priceTextField.text = "\(selectedBook.price!)"
-        
+        bookToSell = selectedBook
         selectedBook = Book()
+        
+        titleTextField.text = bookToSell.title
+        authorTextField.text = bookToSell.author
+        editionTextField.text = bookToSell.edition
+        conditionTextField.text = bookToSell.condition
+        priceTextField.text = "\(bookToSell.price!)"
         
         addKeyboardDoneButton()
         createPicker(myPicker: conditionsPicker, textField: conditionTextField)
@@ -150,15 +151,15 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func deleteListingPressed(_ sender: Any) {
         
-        if selectedBook.isbn13 != nil {
+        if bookToSell.isbn13 != nil {
             print(selectedListingKey)
-            myDatabase.child("listings").child(selectedBook.isbn13!).child(selectedListingKey).removeValue()
-            myDatabase.child("users").child(userID!).child("authoredListings").child(selectedBook.isbn13!).child(selectedListingKey).removeValue()
+            myDatabase.child("listings").child(bookToSell.isbn13!).child(selectedListingKey).removeValue()
+            myDatabase.child("users").child(userID!).child("authoredListings").child(bookToSell.isbn13!).child(selectedListingKey).removeValue()
             SVProgressHUD.showSuccess(withStatus: "Listing deleted!")
             
-        }else if selectedBook.isbn10 != nil {
-            myDatabase.child("listings").child(selectedBook.isbn10!).child(selectedListingKey).removeValue()
-            myDatabase.child("users").child(userID!).child("authoredListings").child(selectedBook.isbn10!).child(selectedListingKey).removeValue()
+        }else if bookToSell.isbn10 != nil {
+            myDatabase.child("listings").child(bookToSell.isbn10!).child(selectedListingKey).removeValue()
+            myDatabase.child("users").child(userID!).child("authoredListings").child(bookToSell.isbn10!).child(selectedListingKey).removeValue()
             SVProgressHUD.showSuccess(withStatus: "Listing deleted!")
             
         }else{
@@ -181,7 +182,12 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
             SVProgressHUD.showError(withStatus: "Please enter an author")
             return
         }
-        if editionTextField.text?.isEmpty == true {
+        if editionTextField.text?.isEmpty == false {
+            if Int(editionTextField.text!) == nil {
+                SVProgressHUD.showError(withStatus: "Please enter an integer for the edition.")
+                return
+            }
+        }else{
             editionTextField.text = "1"
         }
         if selectedCondition?.isEmpty == true {
@@ -199,22 +205,24 @@ class EditListingViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
         
         
-        if selectedBook.isbn13 != nil {
+        if bookToSell.isbn13 != nil {
             print(selectedListingKey)
-            let bookRef = myDatabase.child("listings").child(selectedBook.isbn13!).child(selectedListingKey)
+            let bookRef = myDatabase.child("listings").child(bookToSell.isbn13!).child(selectedListingKey)
             
             bookRef.child("title").setValue(titleTextField.text!)
             bookRef.child("author").setValue(authorTextField.text!)
+            bookRef.child("edition").setValue(editionTextField.text!)
             bookRef.child("condition").setValue(conditionTextField.text!)
             bookRef.child("price").setValue(Int(priceTextField.text!))
             
             SVProgressHUD.showSuccess(withStatus: "Listing updated!")
             
-        }else if selectedBook.isbn10 != nil {
-            let bookRef = myDatabase.child("listings").child(selectedBook.isbn10!).child(selectedListingKey)
+        }else if bookToSell.isbn10 != nil {
+            let bookRef = myDatabase.child("listings").child(bookToSell.isbn10!).child(selectedListingKey)
             
             bookRef.child("title").setValue(titleTextField.text!)
             bookRef.child("author").setValue(authorTextField.text!)
+            bookRef.child("edition").setValue(editionTextField.text!)
             bookRef.child("condition").setValue(conditionTextField.text!)
             bookRef.child("price").setValue(Int(priceTextField.text!))
             

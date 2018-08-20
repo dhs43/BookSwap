@@ -258,7 +258,12 @@ class ManualEntryViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         if editionTextField.text?.isEmpty == false {
-            bookToSell.edition = editionTextField.text!
+            if Int(editionTextField.text!) != nil {
+                bookToSell.edition = editionTextField.text!
+            }else{
+                SVProgressHUD.showError(withStatus: "Please enter an integer for the edition.")
+                return
+            }
         }else{
             bookToSell.edition = "1"
         }

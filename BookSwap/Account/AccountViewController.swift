@@ -21,11 +21,15 @@ class AccountViewController: UIViewController {
         emailTextLabel.layer.masksToBounds = true
         emailTextLabel.layer.cornerRadius = 5.0;
         emailTextLabel.isHidden = true
-        var username = usernameTextLabel.text
         
         //unique userID
         userID = Auth.auth().currentUser?.uid
+        displayUsername()
+    }
+    
+    func displayUsername() {
         //display username on account page
+        var username = usernameTextLabel.text
         myDatabase.child("users").child(userID!).child("userData").observeSingleEvent(of: .value) { (snapshot) in
             let profileData = snapshot.value as! [String: Any]
             username = profileData["username"] as? String
@@ -51,6 +55,37 @@ class AccountViewController: UIViewController {
                 UIApplication.shared.openURL(url)
             }
         }
+    }
+    
+    //edit username
+    @IBAction func editUsername(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Edit Username", message:"", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Save", style: .default) { (_) in
+            
+            //getting the input values from user
+            let username = alertController.textFields?[0].text
+            
+            myDatabase.child("users").child(userID!).child("userData").child("username").setValue(username!)
+            self.displayUsername()
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Username"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //logout

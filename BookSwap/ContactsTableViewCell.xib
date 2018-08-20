@@ -21,23 +21,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKs-lQ-FjP">
-                        <rect key="frame" x="16" y="11" width="48" height="22"/>
+                        <rect key="frame" x="16" y="11" width="288" height="22"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFC-kc-lLO">
-                        <rect key="frame" x="16" y="38" width="60" height="21"/>
+                        <rect key="frame" x="16" y="38" width="288" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="KFC-kc-lLO" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="HUQ-Ch-rXl"/>
-                    <constraint firstItem="YKs-lQ-FjP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="v1c-CS-2wN"/>
-                    <constraint firstItem="KFC-kc-lLO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="wpU-bs-32P"/>
-                    <constraint firstItem="YKs-lQ-FjP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="xzW-WV-NRN"/>
+                    <constraint firstItem="KFC-kc-lLO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="KZW-Kw-5vK"/>
+                    <constraint firstItem="KFC-kc-lLO" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Z49-3Y-Of0"/>
+                    <constraint firstItem="KFC-kc-lLO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="dRJ-Eu-iyG"/>
+                    <constraint firstItem="YKs-lQ-FjP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="fgy-yM-Wsj"/>
+                    <constraint firstItem="YKs-lQ-FjP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="keI-0R-zR1"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="YKs-lQ-FjP" secondAttribute="trailing" id="oHA-21-2cr"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

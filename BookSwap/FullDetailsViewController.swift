@@ -17,6 +17,7 @@ class FullDetailsViewController: UIViewController {
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var editionLabel: UILabel!
     @IBOutlet weak var courseLabel: UILabel!
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var isbn13Label: UILabel!
@@ -35,6 +36,7 @@ class FullDetailsViewController: UIViewController {
         bookImage.kf.setImage(with: url)
         titleLabel.text = bookForSale.title!
         authorLabel.text = "Author: \(bookForSale.author!)"
+        editionLabel.text = "Edition: \(bookForSale.edition!)"
         courseLabel.text = "Course: \(bookForSale.department!) \(bookForSale.course!)"
         conditionLabel.text = "Condition: \(bookForSale.condition!)"
         isbn13Label.text = "ISBN 13: \(bookForSale.isbn13!)"

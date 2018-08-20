@@ -47,9 +47,10 @@
 		6310453320FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6310453820FD90BE00B97C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6310453A20FD90BE00B97C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersChatsViewController.swift; path = BookSwap/UsersChatsViewController.swift; sourceTree = SOURCE_ROOT; };
+		6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersChatsViewController.swift; path = BookSwap/Chat/UsersChatsViewController.swift; sourceTree = SOURCE_ROOT; };
 		6333DFD32128D523006A8BCB /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		6333DFD42128D523006A8BCB /* ContactsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsTableViewCell.xib; sourceTree = "<group>"; };
+		6333DFD8212930D2006A8BCB /* BookSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookSwap.entitlements; sourceTree = "<group>"; };
 		6339B8ED2123544B002DDEA8 /* AuthoredListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthoredListingsViewController.swift; sourceTree = "<group>"; };
 		633C2023211CB67900BE481A /* SearchCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoursesViewController.swift; sourceTree = "<group>"; };
 		63860E5E210EA5B500DB4992 /* BookItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -119,16 +120,15 @@
 		6310452D20FD90BE00B97C0C /* BookSwap */ = {
 			isa = PBXGroup;
 			children = (
+				6333DFD8212930D2006A8BCB /* BookSwap.entitlements */,
 				6310452E20FD90BE00B97C0C /* AppDelegate.swift */,
 				6310453020FD90BE00B97C0C /* ViewController.swift */,
-				63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */,
 				63B5D95B211188E30010DE97 /* ISBNViewController.swift */,
-				63926995210D9977007F2B4D /* Book.swift */,
+				63E1097F210FE9D3001D858A /* ManualEntryViewController.swift */,
 				63B9CAAE2122A9D300C056AB /* ListingDetailsViewController.swift */,
-				63A27ACB2125372600750A49 /* ChatViewController.swift */,
-				63D0D9D92128054700CE3615 /* ChatMessageCell.swift */,
 				63D0D9D52127A66D00CE3615 /* FullDetailsViewController.swift */,
-				6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */,
+				63926995210D9977007F2B4D /* Book.swift */,
+				6333DFD721290FA6006A8BCB /* Chat */,
 				633D66FD211F6BEF00629925 /* Search */,
 				63296CC42101D3C5008DA161 /* Account */,
 				6310453220FD90BE00B97C0C /* Main.storyboard */,
@@ -157,6 +157,16 @@
 				63C46EA12123BEC600C74E09 /* EditListingViewController.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		6333DFD721290FA6006A8BCB /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				63A27ACB2125372600750A49 /* ChatViewController.swift */,
+				63D0D9D92128054700CE3615 /* ChatMessageCell.swift */,
+				6333DFCB2128BF01006A8BCB /* UsersChatsViewController.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		633D66FD211F6BEF00629925 /* Search */ = {
@@ -213,6 +223,14 @@
 				TargetAttributes = {
 					6310452A20FD90BE00B97C0C = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -280,6 +298,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -289,6 +308,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -473,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = BookSwap/BookSwap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;
@@ -494,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = BookSwap/BookSwap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR8C352QVD;
 				INFOPLIST_FILE = BookSwap/Info.plist;
