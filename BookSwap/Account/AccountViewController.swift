@@ -92,7 +92,6 @@ class AccountViewController: UIViewController {
     @IBAction func logOutButton(_ sender: Any) {
         do{
             try Auth.auth().signOut()
-            
             //switch back to login page
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let signInVC = storyboard.instantiateViewController(withIdentifier: "appStart")

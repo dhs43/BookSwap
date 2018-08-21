@@ -63,11 +63,15 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
             //check if users have previous chat in database
             myDatabase.child("messages").observeSingleEvent(of: .value) { (snapshot) in
                 
+                print("test")
+                
                 for child in snapshot.children {
                     let data = child as! DataSnapshot
                     
+                    //looks for previous chat ID
                     if data.key == "\(self.bookForSale.listedBy!)-\(userID!)" || data.key == "\(userID!)-\(self.bookForSale.listedBy!)" {
                         self.chatId = data.key as String
+                        self.getHistory()
                         break
                     }
                 }
@@ -79,9 +83,10 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
                     //also create reference to chat under each user's node
                     myDatabase.child("users").child(userID!).child("userChats").child(self.chatId).setValue(self.chatId)
                     myDatabase.child("users").child(self.bookForSale.listedBy!).child("userChats").child(self.chatId).setValue(self.chatId)
+                    
+                    self.getHistory()
                 }
             }
-            self.getHistory()
         }
         
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
@@ -218,6 +223,7 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         var history = myDatabase
         history = myDatabase.child("messages").child(chatId)
         let contents = ["sender":"\(userID!)", "message": inputTextField.text!, "date": "\(Date())"]
+        notifyReceiver(message: inputTextField.text!)
         inputTextField.text = ""
         history.childByAutoId().setValue(contents)
     }
@@ -247,10 +253,35 @@ class ChatViewController: UICollectionViewController, UITextFieldDelegate, UICol
         }
         
     }
+    
+    //send push notification to receiver
+    func notifyReceiver(message: String) {
+        
+        //get receivers app id token to send notification to
+        var receiversToken = ""
+        
+        myDatabase.child("users").child(chattingWith).child("userData").child("deviceToken").observeSingleEvent(of: .value) { (snapshot) in
+            receiversToken = snapshot.value as! String
+            
+            if let url = URL(string: "https://fcm.googleapis.com/fcm/send") {
+                
+                //make Firebase Cloud Messaging request with server key and other users app id token
+                var request = URLRequest(url: url)
+                request.allHTTPHeaderFields = ["Content-Type": "application/json","Authorization":"key=mykey"]
+                request.httpMethod = "POST"
+                request.httpBody = "{\"to\":\"\(receiversToken)\",\"notification\":{\"title\":\"\(myUsername)\",\"body\":\"\(message)\"}}".data(using: .utf8)
+                
+                URLSession.shared.dataTask(with: request) { (data, urlresponse, error) in
+                    if error != nil {
+                        print(error!)
+                    }
+                    }.resume()
+            }
+        }
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
-        
         return true
     }
     

@@ -42,6 +42,8 @@ class UsersChatsViewController: UIViewController {
         myDatabase.child("users").child(userID!).child("hasNewMessages").setValue(false)
         //reset badge app icon
         UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        
     }
     
     func getOtherUsers(data: String) {

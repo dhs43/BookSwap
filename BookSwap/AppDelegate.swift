@@ -14,9 +14,10 @@ import UserNotifications
 
 let myDatabase = Database.database().reference()
 var userID = Auth.auth().currentUser?.uid
+var myUsername = ""
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
@@ -26,45 +27,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         //check if user is already logged in
-        if Auth.auth().currentUser != nil {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "signedIn")
-            
-        } else {
-            // No user is signed in. Directs to Login/Register view.
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "signedIn")
+                
+                //setup user once they have logged in
+                self.userSetup()
+                
+                print(user)
+            } else {
+                // No user is signed in. Directs to Login/Register view.
+            }
         }
         
+        //Register for remote notifications
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        
+        return true
+    }
+    
+    func userSetup() {
         //unique userID
-        userID = Auth.auth().currentUser?.uid
+        userID = Auth .auth().currentUser?.uid
+        //username
+        myDatabase.child("users").child(userID!).child("userData").child("username").observeSingleEvent(of: .value) { (snapshot) in
+            myUsername = snapshot.value as! String
+        }
         
         //set app-wide settings for progress indicators
         SVProgressHUD.setBorderColor(UIColor(red:0.72, green:0.69, blue:0.52, alpha:1.0))
         SVProgressHUD.setBorderWidth(1)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (didAllow, error) in
-            
-        }
-        
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        
-        return true
-    }
-    
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        myDatabase.child("users").child(userID!).child("hasNewMessages").observeSingleEvent(of: .value) { (snapshot) in
-            if snapshot.value as! Bool == true {
-                let content = UNMutableNotificationContent()
-                content.title = "You have unread messages"
-                content.badge = 1
-                
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-                let request = UNNotificationRequest(identifier: "testing", content: content, trigger: trigger)
-                
-                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        //get app id token for notifications
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                myDatabase.child("users").child(userID!).child("userData").child("deviceToken").setValue(result.token)
             }
         }
     }
