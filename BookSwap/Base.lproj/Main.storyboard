@@ -950,8 +950,11 @@
                                 <color key="textColor" red="0.18233111499999999" green="0.35593992470000002" blue="0.14614763859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Try searching by course or ISBN!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3G-Tm-dAu">
-                                <rect key="frame" x="44" y="582" width="325" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try searching by course or ISBN!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3G-Tm-dAu">
+                                <rect key="frame" x="75.666666666666686" y="582" width="263" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="263" id="Asi-Iv-O8g"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.18233111499999999" green="0.35593992470000002" blue="0.14614763859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -977,16 +980,16 @@
                         <constraints>
                             <constraint firstItem="k1H-DW-66z" firstAttribute="leading" secondItem="E58-3E-DCs" secondAttribute="leading" id="0WQ-ia-Q05"/>
                             <constraint firstItem="LZr-Si-WwZ" firstAttribute="leading" secondItem="E58-3E-DCs" secondAttribute="leading" constant="44" id="1Ae-yz-Ugk"/>
+                            <constraint firstItem="KcY-65-Tkd" firstAttribute="top" secondItem="W3G-Tm-dAu" secondAttribute="bottom" constant="48" id="2To-9C-Zok"/>
                             <constraint firstItem="C4r-V4-kUU" firstAttribute="leading" secondItem="E58-3E-DCs" secondAttribute="leading" id="3oY-hB-kHW"/>
                             <constraint firstItem="nFJ-PY-4nc" firstAttribute="leading" secondItem="E58-3E-DCs" secondAttribute="leading" constant="16" id="4Uv-WA-JNj"/>
                             <constraint firstItem="E58-3E-DCs" firstAttribute="bottom" secondItem="nFJ-PY-4nc" secondAttribute="bottom" constant="6" id="5AE-UP-CLF"/>
                             <constraint firstItem="KcY-65-Tkd" firstAttribute="width" secondItem="nFJ-PY-4nc" secondAttribute="width" id="Bnw-8W-h43"/>
                             <constraint firstItem="LZr-Si-WwZ" firstAttribute="top" secondItem="k1H-DW-66z" secondAttribute="bottom" constant="21" id="D3s-E2-CmF"/>
-                            <constraint firstItem="E58-3E-DCs" firstAttribute="trailing" secondItem="W3G-Tm-dAu" secondAttribute="trailing" constant="45" id="D54-Cn-G8z"/>
                             <constraint firstItem="k1H-DW-66z" firstAttribute="top" secondItem="E58-3E-DCs" secondAttribute="top" id="Gv3-hK-s98"/>
                             <constraint firstItem="k1H-DW-66z" firstAttribute="trailing" secondItem="E58-3E-DCs" secondAttribute="trailing" id="KoD-TO-Gqk"/>
                             <constraint firstItem="C4r-V4-kUU" firstAttribute="top" secondItem="k1H-DW-66z" secondAttribute="bottom" id="ORv-Yt-WHF"/>
-                            <constraint firstItem="W3G-Tm-dAu" firstAttribute="leading" secondItem="E58-3E-DCs" secondAttribute="leading" constant="44" id="SxB-ry-AG8"/>
+                            <constraint firstItem="W3G-Tm-dAu" firstAttribute="centerX" secondItem="bHR-BS-4dl" secondAttribute="centerX" id="VFG-wx-SIu"/>
                             <constraint firstItem="C4r-V4-kUU" firstAttribute="trailing" secondItem="E58-3E-DCs" secondAttribute="trailing" id="aqM-6Y-0U7"/>
                             <constraint firstItem="E58-3E-DCs" firstAttribute="trailing" secondItem="KcY-65-Tkd" secondAttribute="trailing" constant="16" id="fSw-RQ-qQy"/>
                             <constraint firstItem="KcY-65-Tkd" firstAttribute="top" secondItem="C4r-V4-kUU" secondAttribute="bottom" constant="5" id="hAm-Bu-iTT"/>
@@ -1018,7 +1021,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2282.4000000000001" y="156.97151424287858"/>
+            <point key="canvasLocation" x="2281.1594202898555" y="155.70652173913044"/>
         </scene>
         <!--Sell-->
         <scene sceneID="yXi-Br-ix7">
@@ -1175,7 +1178,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebl-0a-O0k">
-                                <rect key="frame" x="66" y="676" width="174" height="40"/>
+                                <rect key="frame" x="66.000000000000014" y="676" width="199.33333333333337" height="40"/>
                                 <color key="backgroundColor" red="0.14597034449999999" green="0.33243203160000001" blue="0.10865012559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="xfd-IV-lCZ"/>
@@ -1193,13 +1196,13 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4sL-gH-2De">
-                                <rect key="frame" x="16" y="90" width="274" height="30"/>
+                                <rect key="frame" x="16" y="90" width="299.33333333333331" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Author" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JQl-p9-qsX">
-                                <rect key="frame" x="16" y="128" width="274" height="30"/>
+                                <rect key="frame" x="16" y="128" width="299.33333333333331" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -1214,7 +1217,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Department" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Yc-geC">
-                                <rect key="frame" x="15.999999999999993" y="228" width="98.333333333333314" height="30"/>
+                                <rect key="frame" x="16" y="228" width="167" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="167" id="tQo-jh-MHM"/>
                                 </constraints>
@@ -1223,7 +1226,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Course" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k5b-lX-VK4">
-                                <rect key="frame" x="122.33333333333334" y="228" width="111.33333333333334" height="30"/>
+                                <rect key="frame" x="191" y="228" width="67.666666666666686" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="111.5" id="l3T-sY-n6x"/>
                                 </constraints>
@@ -1253,7 +1256,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ISBN" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZ7-67-z5a">
-                                <rect key="frame" x="16" y="352" width="168" height="30"/>
+                                <rect key="frame" x="16" y="352" width="193.33333333333334" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>

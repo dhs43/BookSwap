@@ -26,6 +26,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //Firebase
         FirebaseApp.configure()
         
+        //check if this is the first time opening the app
+        //takes into account scenario where user is logged in, deletes, and reinstalls
+        let userDefaults = UserDefaults.standard
+        if userDefaults.value(forKey: "appFirstTimeOpend") == nil {
+            //if app is first time opened then it will be nil
+            userDefaults.setValue(true, forKey: "appFirstTimeOpend")
+            // signOut of Firebase
+            do {
+                try Auth.auth().signOut()
+            }catch {
+                
+            }
+            // go to beginning of app
+        }
+        
         //check if user is already logged in
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
