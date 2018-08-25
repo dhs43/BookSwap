@@ -1,0 +1,6 @@
+iOS app for students at Humboldt State University to buy/sell each other’s used textbooks. Application was written in Swift and included:
+• Firebase Authentication
+• Firebase Realtime-Database (JSON)
+• Google Books API
+• Realtime messaging with push notifications
+• Barcode Scanner using Apple Vision framework
